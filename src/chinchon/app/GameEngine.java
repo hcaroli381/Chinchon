@@ -1,12 +1,12 @@
 package chinchon.app;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import chinchon.dominio.AI;
 import chinchon.dominio.Card;
 import chinchon.dominio.Deck;
-import chinchon.dominio.Human;
 import chinchon.dominio.Player;
+import chinchon.dominio.PlayerFactory;
 
 public class GameEngine {
 	private static GameEngine instance;
@@ -16,7 +16,8 @@ public class GameEngine {
 	private ConsoleInput console;
 
 	private GameEngine() {
-
+		setupGame();
+		discardPile = new ArrayList<Card>();
 	}
 
 	public static GameEngine getInstance() {
@@ -27,10 +28,16 @@ public class GameEngine {
 	}
 
 	public void setupGame() {
+		Deck deck = new Deck();
+		deck.createDeck();
+
+		int players;
+		players = requestNumberOfPlayers();
+		createPlayers(players);
 
 	}
 
-	public int numberOfPlayers() {
+	public int requestNumberOfPlayers() {
 		int players;
 		System.out.println("¿Cuantos jugadores quieres añadir?");
 		players = console.readIntInRange(2, 5);
@@ -53,19 +60,31 @@ public class GameEngine {
 	}
 
 	public void createPlayers(int numberOfPlayers) {
+
+		List<Card> hand = new ArrayList<Card>();
 		boolean player;
 		String name;
 		for (int i = 0; i < numberOfPlayers; i++) {
-			System.out.printf("Jugador %d\n", i);
+			hand = startHand();
+			System.out.printf("Jugador %d :\n", i);
 			player = requestPlayerNature();
 			name = requestPlayerName();
 			if (player) {
-				players.add(new Human(name, new Deck().createDeck()));
+				players.add(PlayerFactory.createPlayer("human", name, hand));
 			} else {
-				players.add(new AI(name, new Deck().createDeck()));
+				players.add(PlayerFactory.createPlayer("ai", name, hand));
 			}
 
 		}
+	}
+
+	public List<Card> startHand() {
+		List<Card> hand = new ArrayList<Card>();
+		for (int i = 0; i < 7; i++) {
+			hand.add(deck.drawCard());
+			deck.removeCard();
+		}
+		return hand;
 	}
 
 }

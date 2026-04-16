@@ -30,7 +30,7 @@ public class Human extends Player {
 		option = input.readBooleanUsingChar('r', 'c');
 		if (option) {
 			getHand().add(deck.drawCard());
-			deck.removeCard();
+			deck.cards.removeFirst();
 		} else {
 			getHand().add(discardPile.getFirst());
 			discardPile.removeFirst();
@@ -45,4 +45,7 @@ public class Human extends Player {
 		getHand().remove(card - 1);
 	}
 
+	public int currentScore(HandAnalyzer handAnalyzer) {
+		return handAnalyzer.calculateUncombinedCards(getHand());
+	}
 }

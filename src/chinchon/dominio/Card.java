@@ -1,6 +1,6 @@
 package chinchon.dominio;
 
-public class Card {
+public class Card implements Comparable<Card> {
 	private Suit suit;
 	private Value value;
 
@@ -28,6 +28,6 @@ public class Card {
 			return this.suit.compareTo(other.suit);
 		}
 
-		return Integer.compare(this.value.getValue(), other.value.getValue());
+		return Integer.compare(this.value.getNumber(), other.value.getNumber());
 	}
 }
