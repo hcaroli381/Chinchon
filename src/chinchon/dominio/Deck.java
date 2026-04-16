@@ -25,6 +25,10 @@ public class Deck {
 	}
 
 	public Card drawCard() {
-		return cards.get(0);
+		return cards.getFirst();
+	}
+
+	public void removeCard() {
+		cards.removeFirst();
 	}
 }

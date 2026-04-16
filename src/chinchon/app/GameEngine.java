@@ -3,6 +3,7 @@ package chinchon.app;
 import java.util.List;
 
 import chinchon.dominio.AI;
+import chinchon.dominio.Card;
 import chinchon.dominio.Deck;
 import chinchon.dominio.Human;
 import chinchon.dominio.Player;
@@ -11,7 +12,7 @@ public class GameEngine {
 	private static GameEngine instance;
 	private List<Player> players;
 	private Deck deck;
-	private Deck discardPile;
+	private List<Card> discardPile;
 	private ConsoleInput console;
 
 	private GameEngine() {
