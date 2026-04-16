@@ -1,5 +1,5 @@
 package chinchon.dominio;
 
-public class Human {
+public class Human extends Player {
 
 }
