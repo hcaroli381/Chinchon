@@ -51,8 +51,8 @@ public class HandAnalyzer {
 		for (List<Card> group : groups.values()) {
 			group.sort((c1, c2) -> Integer.compare(c1.getValue().getNumber(), c2.getValue().getNumber()));
 
-			if ((group.size() >= 3) && ((deck.cards.indexOf(group.get(deck.cards.size() - 1))
-					- (deck.cards.indexOf(group.get(0)))) < (group.size() + 1))) {
+			if ((group.size() >= 3) && ((deck.getCards().indexOf(group.get(deck.getCards().size() - 1))
+					- (deck.getCards().indexOf(group.get(0)))) < (group.size() + 1))) {
 				auxiliarHand.removeAll(group);
 			}
 		}
@@ -82,7 +82,9 @@ public class HandAnalyzer {
 	}
 
 	public boolean canClose(List<Card> hand) {
-		if (hand.size() == 1 && hand.get(0).getValue().getNumber() <= 6) {
+		if (hand.size() == 1 && hand.get(0).getValue().getNumber() < 6) {
+			return true;
+		} else if (hand.size() == 0) {
 			return true;
 		} else {
 			return false;

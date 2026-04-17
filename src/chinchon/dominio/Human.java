@@ -30,7 +30,7 @@ public class Human extends Player {
 		option = input.readBooleanUsingChar('r', 'c');
 		if (option) {
 			getHand().add(deck.drawCard());
-			deck.cards.removeFirst();
+			deck.getCards().removeFirst();
 		} else {
 			getHand().add(discardPile.getFirst());
 			discardPile.removeFirst();
