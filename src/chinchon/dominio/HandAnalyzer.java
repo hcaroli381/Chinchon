@@ -91,4 +91,23 @@ public class HandAnalyzer {
 		}
 	}
 
+	public Card getBestDiscard(List<Card> hand) {
+		List<Card> auxHand;
+		Card discardCard = null, auxCard;
+		int minPoints = 200, points;
+
+		for (int i = 0; i < hand.size(); i++) {
+			auxHand = new ArrayList<>(hand);
+			auxCard = auxHand.remove(i);
+
+			points = calculateUncombinedCards(auxHand);
+
+			if (points < minPoints) {
+				minPoints = points;
+				discardCard = auxCard;
+			}
+		}
+		return discardCard;
+	}
+
 }

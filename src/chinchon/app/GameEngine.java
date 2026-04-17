@@ -3,6 +3,7 @@ package chinchon.app;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 import chinchon.dominio.Card;
 import chinchon.dominio.Deck;
@@ -20,9 +21,13 @@ public class GameEngine {
 	private ConsoleInput console;
 
 	private GameEngine() {
+		Scanner sc = new Scanner(System.in);
+		console = new ConsoleInput(sc);
+		players = new ArrayList<>();
+		discardPile = new ArrayList<>();
+		deck = new Deck();
+		deck.createDeck();
 		setupGame();
-		handAnalyzer = new HandAnalyzer();
-		discardPile = new ArrayList<Card>();
 	}
 
 	public static GameEngine getInstance() {
@@ -33,13 +38,12 @@ public class GameEngine {
 	}
 
 	public void setupGame() {
-
-		Deck deck = new Deck();
+		deck = new Deck();
 		deck.createDeck();
+		deck.shuffle();
 
-		int players;
-		players = requestNumberOfPlayers();
-		createPlayers(players);
+		int numPlayers = requestNumberOfPlayers();
+		createPlayers(numPlayers);
 
 	}
 
@@ -93,7 +97,7 @@ public class GameEngine {
 		return hand;
 	}
 
-	private void startGameLoop() {
+	public void startGameLoop() {
 		boolean option, roundEnd = false;
 		setupGame();
 		while (!roundEnd) {
@@ -109,6 +113,7 @@ public class GameEngine {
 						}
 					} else {
 						endRound(player);
+						roundEnd = true;
 					}
 				}
 
