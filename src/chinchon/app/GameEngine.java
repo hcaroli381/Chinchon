@@ -25,6 +25,7 @@ public class GameEngine {
 		console = new ConsoleInput(sc);
 		players = new ArrayList<>();
 		discardPile = new ArrayList<>();
+		handAnalyzer = new HandAnalyzer();
 		deck = new Deck();
 		deck.createDeck();
 		setupGame();
@@ -41,6 +42,7 @@ public class GameEngine {
 		deck = new Deck();
 		deck.createDeck();
 		deck.shuffle();
+		discardPile.add(deck.getCards().removeFirst());
 
 		int numPlayers = requestNumberOfPlayers();
 		createPlayers(numPlayers);
@@ -80,9 +82,9 @@ public class GameEngine {
 			player = requestPlayerNature();
 			name = requestPlayerName();
 			if (player) {
-				players.add(PlayerFactory.createPlayer("human", name, hand));
+				players.add(PlayerFactory.createPlayer("human", name, hand, handAnalyzer));
 			} else {
-				players.add(PlayerFactory.createPlayer("ai", name, hand));
+				players.add(PlayerFactory.createPlayer("ai", name, hand, handAnalyzer));
 			}
 
 		}
@@ -99,9 +101,9 @@ public class GameEngine {
 
 	public void startGameLoop() {
 		boolean option, roundEnd = false;
-		setupGame();
 		while (!roundEnd) {
 			for (Player player : players) {
+				System.out.printf("Descartes : %s   Baraja : 🂠", discardPile.getFirst());
 				player.playTurn(console, deck, discardPile);
 				if (handAnalyzer.canClose(player.getHand())) {
 					if (player instanceof Human) {

@@ -49,13 +49,26 @@ public class HandAnalyzer {
 		}
 
 		for (List<Card> group : groups.values()) {
+
 			group.sort((c1, c2) -> Integer.compare(c1.getValue().getNumber(), c2.getValue().getNumber()));
 
-			if ((group.size() >= 3) && ((deck.getCards().indexOf(group.get(deck.getCards().size() - 1))
-					- (deck.getCards().indexOf(group.get(0)))) < (group.size() + 1))) {
+			if ((group.size() >= 3) && (isConsecutive(group))) {
 				auxiliarHand.removeAll(group);
 			}
 		}
+	}
+
+	private boolean isConsecutive(List<Card> group) {
+		int current, next;
+		for (int i = 0; i < group.size() - 1; i++) {
+			current = group.get(i).getValue().ordinal();
+			next = group.get(i + 1).getValue().ordinal();
+
+			if (next - current != 1) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean findChinchon(List<Card> auxiliarHand) {

@@ -8,11 +8,13 @@ public abstract class Player {
 	private String name;
 	private List<Card> hand;
 	private int score;
+	private HandAnalyzer handAnalyzer;
 
-	public Player(String name, List<Card> hand, int score) {
+	public Player(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {
 		this.name = name;
 		this.hand = hand;
 		this.score = score;
+		this.setHandAnalyzer(handAnalyzer);
 	}
 
 	public String getName() {
@@ -44,4 +46,12 @@ public abstract class Player {
 	}
 
 	public abstract void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile);
+
+	public HandAnalyzer getHandAnalyzer() {
+		return handAnalyzer;
+	}
+
+	public void setHandAnalyzer(HandAnalyzer handAnalyzer) {
+		this.handAnalyzer = handAnalyzer;
+	}
 }

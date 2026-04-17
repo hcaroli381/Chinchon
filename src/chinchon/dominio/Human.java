@@ -6,8 +6,8 @@ import chinchon.app.ConsoleInput;
 
 public class Human extends Player {
 
-	public Human(String name, List<Card> hand, int score) {
-		super(name, hand, score);
+	public Human(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {
+		super(name, hand, score, handAnalyzer);
 
 	}
 
@@ -22,6 +22,8 @@ public class Human extends Player {
 
 	public void showHand() {
 		System.out.println(getHand());
+		System.out.println(getScore() + " points");
+		System.out.printf("Current round : %s", getHandAnalyzer().calculateUncombinedCards(getHand()));
 	}
 
 	public void askForDraw(ConsoleInput input, Deck deck, List<Card> discardPile) {
