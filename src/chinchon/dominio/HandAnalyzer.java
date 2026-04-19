@@ -17,6 +17,7 @@ public class HandAnalyzer {
 		for (Card card : auxiliarHand) {
 			uncombined += card.getValue().getNumber();
 		}
+
 		return uncombined;
 	}
 
@@ -38,8 +39,6 @@ public class HandAnalyzer {
 	}
 
 	public void findRuns(List<Card> auxiliarHand) {
-		Deck deck = new Deck();
-		deck.createDeck();
 		Suit suit;
 		Map<Suit, List<Card>> groups = new HashMap<>();
 		for (Card card : auxiliarHand) {
@@ -49,11 +48,31 @@ public class HandAnalyzer {
 		}
 
 		for (List<Card> group : groups.values()) {
+			group.sort((c1, c2) -> Integer.compare(c1.getValue().ordinal(), c2.getValue().ordinal()));
 
-			group.sort((c1, c2) -> Integer.compare(c1.getValue().getNumber(), c2.getValue().getNumber()));
+			if (group.size() >= 3) {
+				List<Card> potentialRun = new ArrayList<>();
+				potentialRun.add(group.get(0));
 
-			if ((group.size() >= 3) && (isConsecutive(group))) {
-				auxiliarHand.removeAll(group);
+				for (int i = 0; i < group.size() - 1; i++) {
+					int current = group.get(i).getValue().ordinal();
+					int next = group.get(i + 1).getValue().ordinal();
+
+					if (next - current == 1) {
+						potentialRun.add(group.get(i + 1));
+					} else {
+
+						if (potentialRun.size() >= 3) {
+							auxiliarHand.removeAll(potentialRun);
+						}
+						potentialRun.clear();
+						potentialRun.add(group.get(i + 1));
+					}
+				}
+
+				if (potentialRun.size() >= 3) {
+					auxiliarHand.removeAll(potentialRun);
+				}
 			}
 		}
 	}
@@ -95,13 +114,21 @@ public class HandAnalyzer {
 	}
 
 	public boolean canClose(List<Card> hand) {
-		if (hand.size() == 1 && hand.get(0).getValue().getNumber() < 6) {
+
+		List<Card> auxiliarHand = new ArrayList<>(hand);
+
+		findSets(auxiliarHand);
+		findRuns(auxiliarHand);
+
+		if (auxiliarHand.size() == 1 && auxiliarHand.get(0).getValue().getNumber() < 6) {
 			return true;
-		} else if (hand.size() == 0) {
-			return true;
-		} else {
-			return false;
 		}
+
+		else if (auxiliarHand.isEmpty()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public Card getBestDiscard(List<Card> hand) {
@@ -121,6 +148,21 @@ public class HandAnalyzer {
 			}
 		}
 		return discardCard;
+	}
+
+	public List<Card> getCombinedCards(List<Card> hand) {
+		List<Card> combined = new ArrayList<Card>();
+		List<Card> auxHand = new ArrayList<Card>(hand);
+
+		findSets(auxHand);
+		findRuns(auxHand);
+
+		for (Card c : hand) {
+			if (!auxHand.contains(c)) {
+				combined.add(c);
+			}
+		}
+		return combined;
 	}
 
 }

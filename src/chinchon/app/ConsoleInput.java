@@ -188,22 +188,12 @@ public class ConsoleInput {
 	}
 
 	public String readString() {
-		String s = "";
-		boolean hayError = true;
-		do {
-			try {
-				s = keyboard.nextLine();
-				if (s.trim().isEmpty()) {
-					System.err.println("Error: La cadena no puede estar vacía.");
-				} else {
-					hayError = false;
-				}
-			} catch (Exception e) {
-				System.err.println("Error: Introduce una cadena válida.");
-				cleanInput();
-			}
-		} while (hayError);
-		return s;
+		String resultado = "";
+
+		while (resultado.isEmpty()) {
+			resultado = keyboard.nextLine().trim();
+		}
+		return resultado;
 	}
 
 	public String readString(int maxLength) {
@@ -225,6 +215,23 @@ public class ConsoleInput {
 		char neg = Character.toLowerCase(negativeValue);
 
 		System.out.printf("Introduce '%c' para Sí o '%c' para No: ", affirmativeValue, negativeValue);
+
+		do {
+			c = Character.toLowerCase(readChar());
+			if (c != aff && c != neg) {
+				System.err.printf("Opción no válida. Introduce '%c' o '%c': ", affirmativeValue, negativeValue);
+			}
+		} while (c != aff && c != neg);
+
+		return c == aff;
+	}
+
+	public boolean readBooleanUsingChar(char affirmativeValue, char negativeValue, String mensaje) {
+		char c;
+		char aff = Character.toLowerCase(affirmativeValue);
+		char neg = Character.toLowerCase(negativeValue);
+
+		System.out.println(mensaje);
 
 		do {
 			c = Character.toLowerCase(readChar());

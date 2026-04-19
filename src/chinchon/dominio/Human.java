@@ -1,5 +1,6 @@
 package chinchon.dominio;
 
+import java.util.Comparator;
 import java.util.List;
 
 import chinchon.app.ConsoleInput;
@@ -21,21 +22,30 @@ public class Human extends Player {
 	}
 
 	public void showHand() {
-		System.out.println(getHand());
+		List<Card> combined;
+		getHand().sort(Comparator.comparingInt((Card c) -> c.getValue().getNumber()).thenComparing(c -> c.getSuit()));
+		combined = getHandAnalyzer().getCombinedCards(getHand());
+		for (Card c : getHand()) {
+			c.setCombined(combined.contains(c));
+		}
+		System.out.printf("Mano actual : %s", getHand());
 		System.out.println(getScore() + " points");
-		System.out.printf("Current round : %s", getHandAnalyzer().calculateUncombinedCards(getHand()));
+		System.out.printf("Puntuacion de la ronda (provisional) : %s\n",
+				getHandAnalyzer().calculateUncombinedCards(getHand()));
+
 	}
 
 	public void askForDraw(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		boolean option;
-		System.out.println("Escribe r para robar o c para coger del mazo visible");
-		option = input.readBooleanUsingChar('r', 'c');
+		Card c;
+		option = input.readBooleanUsingChar('r', 'c', "Escribe r para robar o c para coger del mazo visible");
 		if (option) {
-			getHand().add(deck.drawCard());
-			deck.getCards().removeFirst();
+			c = deck.drawCard();
+			getHand().add(c);
+
 		} else {
-			getHand().add(discardPile.getFirst());
-			discardPile.removeFirst();
+			c = discardPile.removeFirst();
+			getHand().add(c);
 		}
 	}
 
@@ -43,7 +53,7 @@ public class Human extends Player {
 		int card;
 		System.out.println("Selecciona del 1 al 8 la carta que descartar");
 		card = input.readIntInRange(1, 8);
-		discardPile.add(getHand().get(card - 1));
+		discardPile.add(0, getHand().get(card - 1));
 		getHand().remove(card - 1);
 	}
 

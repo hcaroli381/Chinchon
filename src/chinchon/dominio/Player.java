@@ -54,4 +54,9 @@ public abstract class Player {
 	public void setHandAnalyzer(HandAnalyzer handAnalyzer) {
 		this.handAnalyzer = handAnalyzer;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", name);
+	}
 }

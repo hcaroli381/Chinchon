@@ -11,6 +11,8 @@ import chinchon.dominio.HandAnalyzer;
 import chinchon.dominio.Human;
 import chinchon.dominio.Player;
 import chinchon.dominio.PlayerFactory;
+import chinchon.dominio.Suit;
+import chinchon.dominio.Value;
 
 public class GameEngine {
 	private static GameEngine instance;
@@ -39,14 +41,28 @@ public class GameEngine {
 	}
 
 	public void setupGame() {
-		deck = new Deck();
-		deck.createDeck();
-		deck.shuffle();
-		discardPile.add(deck.getCards().removeFirst());
-
 		int numPlayers = requestNumberOfPlayers();
+
+		deck = new Deck();
+		int numberOfDecks = (numPlayers >= 3) ? 2 : 1;
+
+		for (int i = 0; i < numberOfDecks; i++) {
+			addFullSetToDeck();
+		}
+
+		deck.shuffle();
 		createPlayers(numPlayers);
 
+		discardPile.clear();
+		discardPile.add(deck.drawCard());
+	}
+
+	private void addFullSetToDeck() {
+		for (Suit suit : Suit.values()) {
+			for (Value value : Value.values()) {
+				deck.getCards().add(new Card(suit, value));
+			}
+		}
 	}
 
 	public int requestNumberOfPlayers() {
@@ -58,8 +74,7 @@ public class GameEngine {
 
 	public boolean requestPlayerNature() {
 		boolean player;
-		System.out.println("¿Humano o IA?");
-		player = console.readBooleanUsingChar('h', 'i');
+		player = console.readBooleanUsingChar('h', 'i', "Introduce 'h' para humano o 'i' para IA");
 		return player;
 
 	}
@@ -72,13 +87,13 @@ public class GameEngine {
 	}
 
 	public void createPlayers(int numberOfPlayers) {
-
 		List<Card> hand = new ArrayList<Card>();
 		boolean player;
 		String name;
 		for (int i = 0; i < numberOfPlayers; i++) {
+
 			hand = startHand();
-			System.out.printf("Jugador %d :\n", i);
+			System.out.printf("Jugador %d :\n", i + 1);
 			player = requestPlayerNature();
 			name = requestPlayerName();
 			if (player) {
@@ -94,7 +109,6 @@ public class GameEngine {
 		List<Card> hand = new ArrayList<Card>();
 		for (int i = 0; i < 7; i++) {
 			hand.add(deck.drawCard());
-			deck.removeCard();
 		}
 		return hand;
 	}
@@ -102,26 +116,81 @@ public class GameEngine {
 	public void startGameLoop() {
 		boolean option, roundEnd = false;
 		while (!roundEnd) {
-			for (Player player : players) {
-				System.out.printf("Descartes : %s   Baraja : 🂠", discardPile.getFirst());
+
+			for (int i = 0; i < players.size() && !roundEnd; i++) {
+				Player player = players.get(i);
+
+				System.out.println(player.toString());
+				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
 				player.playTurn(console, deck, discardPile);
+
 				if (handAnalyzer.canClose(player.getHand())) {
 					if (player instanceof Human) {
-						System.out.println("¿Quieres cerrar?");
-						option = console.readBooleanUsingChar('s', 'n');
+						option = console.readBooleanUsingChar('s', 'n', "¿Quieres cerrar? (s/n)");
 						if (option) {
 							endRound(player);
 							roundEnd = true;
+
 						}
 					} else {
+
 						endRound(player);
 						roundEnd = true;
+
 					}
 				}
+			}
+		}
+	}
 
+	public void startGame() {
+		boolean gameEnd = false;
+
+		while (!gameEnd) {
+			prepareNextRound();
+			startGameLoop();
+			gameEnd = checkGameEnd();
+
+			if (!gameEnd) {
+				prepareNextRound();
+				System.out.println("New round!!");
+			}
+			pointsGameEnd();
+		}
+	}
+
+	private boolean checkGameEnd() {
+		for (Player player : players) {
+			if (player.getScore() >= 100) {
+				pointsGameEnd();
+				return true;
 			}
 		}
 
+		if (handAnalyzer.findChinchon(players.get(0).getHand())) {
+			pointsGameEnd();
+			return true;
+		}
+
+		return false;
+	}
+
+	private void prepareNextRound() {
+		int decks;
+		decks = (players.size() >= 3) ? 2 : 1;
+		for (int i = 0; i < decks; i++) {
+			addFullSetToDeck();
+		}
+		deck.shuffle();
+		discardPile.clear();
+		discardPile.add(deck.drawCard());
+
+		for (Player player : players) {
+			player.getHand().clear();
+			for (int i = 0; i < 7; i++) {
+				player.getHand().add(deck.drawCard());
+			}
+		}
 	}
 
 	private void endRound(Player ender) {
@@ -143,9 +212,10 @@ public class GameEngine {
 
 		}
 		for (Player player : players) {
-			System.out.printf("%s : %d puntos", player.getName(), player.getScore());
+			System.out.printf("%s : %d puntos ", player.getName(), player.getScore());
 		}
-
+		System.out.println("Pulsa ENTER para continuar...");
+		console.readString();
 	}
 
 	private void pointsGameEnd() {
@@ -155,6 +225,19 @@ public class GameEngine {
 		for (Player player : players) {
 			i++;
 			System.out.printf("%d. %s\n", player.toString());
+		}
+	}
+
+	public void checkAndRefillDeck() {
+		if (deck.getCards().isEmpty()) {
+			System.out.println("\n El mazo se ha agotado. Rebarajando descartes... ");
+
+			Card topDiscard = discardPile.remove(0);
+
+			deck.addCardsAndShuffle(new ArrayList<>(discardPile));
+
+			discardPile.clear();
+			discardPile.add(topDiscard);
 		}
 	}
 

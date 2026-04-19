@@ -17,28 +17,27 @@ public class AI extends Player {
 		draw(deck, discardPile);
 
 		discard = getHandAnalyzer().getBestDiscard(getHand());
-		System.out.printf("%s descarta : %s", getName(), discard.toString());
+		System.out.printf("%s descarta : %s\n", getName(), discard.toString());
 		getHand().remove(discard);
 		discardPile.add(0, discard);
 
 	}
 
 	private void draw(Deck deck, List<Card> discardPile) {
-		Card auxCard = discardPile.getFirst();
+		Card auxCard = discardPile.get(0);
 		List<Card> auxHand = new ArrayList<>(getHand());
 		auxHand.add(auxCard);
 		int currentPoints, optionalPoints;
 		currentPoints = getHandAnalyzer().calculateUncombinedCards(getHand());
 		optionalPoints = getHandAnalyzer().calculateUncombinedCards(auxHand);
 
-		if (optionalPoints < currentPoints || optionalPoints == currentPoints) {
-			System.out.printf("%s coge de los descartes", getName());
-			getHand().add(discardPile.removeFirst());
+		if (optionalPoints <= currentPoints) {
+			System.out.printf("%s coge de los descartes\n", getName());
+			getHand().add(discardPile.remove(0));
 		} else {
-			System.out.printf("%s coge de la baraja", getName());
+			System.out.printf("%s coge de la baraja\n", getName());
 			getHand().add(deck.drawCard());
 		}
-
 	}
 
 }

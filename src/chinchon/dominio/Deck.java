@@ -20,16 +20,19 @@ public class Deck {
 		}
 	}
 
+	public void addCardsAndShuffle(List<Card> newCards) {
+		this.cards.addAll(newCards);
+		Collections.shuffle(this.cards);
+	}
+
 	public void shuffle() {
 		Collections.shuffle(cards);
 	}
 
 	public Card drawCard() {
-		return cards.getFirst();
-	}
-
-	public void removeCard() {
-		cards.removeFirst();
+		if (cards.isEmpty())
+			return null;
+		return cards.remove(0);
 	}
 
 	public List<Card> getCards() {

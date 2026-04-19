@@ -3,15 +3,25 @@ package chinchon.dominio;
 public class Card implements Comparable<Card> {
 	private Suit suit;
 	private Value value;
+	private boolean combined;
 
 	public Card(Suit suit, Value value) {
 		this.suit = suit;
 		this.value = value;
+		combined = false;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s de %s", value.toString(), suit.toString());
+		String green = "\u001B[32m";
+		String reset = "\u001B[0m";
+
+		if (combined) {
+			return String.format("%s%s de %s%s", green, value.getNumber(), suit.getSymbol(), reset);
+		} else {
+			return String.format("%s de %s", value.getNumber(), suit.getSymbol());
+		}
+
 	}
 
 	public Suit getSuit() {
@@ -20,6 +30,10 @@ public class Card implements Comparable<Card> {
 
 	public Value getValue() {
 		return value;
+	}
+
+	public void setCombined(boolean combined) {
+		this.combined = combined;
 	}
 
 	public int compareTo(Card other) {
