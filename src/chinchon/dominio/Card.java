@@ -13,11 +13,9 @@ public class Card implements Comparable<Card> {
 
 	@Override
 	public String toString() {
-		String green = "\u001B[32m";
-		String reset = "\u001B[0m";
 
 		if (combined) {
-			return String.format("%s%s de %s%s", green, value.getNumber(), suit.getSymbol(), reset);
+			return String.format("%s%s de %s%s", Colors.GREEN, value.getNumber(), suit.getSymbol(), Colors.RESET);
 		} else {
 			return String.format("%s de %s", value.getNumber(), suit.getSymbol());
 		}

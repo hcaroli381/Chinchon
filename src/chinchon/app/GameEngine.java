@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import chinchon.dominio.Card;
+import chinchon.dominio.Colors;
 import chinchon.dominio.Deck;
 import chinchon.dominio.HandAnalyzer;
 import chinchon.dominio.Human;
@@ -122,6 +123,7 @@ public class GameEngine {
 
 				System.out.println(player.toString());
 				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
+				System.out.println(deck.getCards().size());
 				player.playTurn(console, deck, discardPile);
 
 				if (handAnalyzer.canClose(player.getHand())) {
@@ -150,12 +152,11 @@ public class GameEngine {
 			prepareNextRound();
 			startGameLoop();
 			gameEnd = checkGameEnd();
-
 			if (!gameEnd) {
 				prepareNextRound();
-				System.out.println("New round!!");
+				System.out.printf("%sNew round!!%s\n", Colors.YELLOW, Colors.RESET);
 			}
-			pointsGameEnd();
+
 		}
 	}
 
@@ -177,6 +178,7 @@ public class GameEngine {
 
 	private void prepareNextRound() {
 		int decks;
+		deck.getCards().clear();
 		decks = (players.size() >= 3) ? 2 : 1;
 		for (int i = 0; i < decks; i++) {
 			addFullSetToDeck();
@@ -214,8 +216,7 @@ public class GameEngine {
 		for (Player player : players) {
 			System.out.printf("%s : %d puntos ", player.getName(), player.getScore());
 		}
-		System.out.println("Pulsa ENTER para continuar...");
-		console.readString();
+		System.out.println();
 	}
 
 	private void pointsGameEnd() {
@@ -224,7 +225,7 @@ public class GameEngine {
 		players.sort(Comparator.comparingInt(Player::getScore).reversed());
 		for (Player player : players) {
 			i++;
-			System.out.printf("%d. %s\n", player.toString());
+			System.out.printf("%s : %d points\n", player.toString(), player.getScore());
 		}
 	}
 

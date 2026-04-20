@@ -16,9 +16,13 @@ public class Human extends Player {
 	public void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		showHand();
 		askForDraw(input, deck, discardPile);
-		System.out.println("Mano actual :");
 		showHand();
 		discard(input, discardPile);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void showHand() {
@@ -28,8 +32,8 @@ public class Human extends Player {
 		for (Card c : getHand()) {
 			c.setCombined(combined.contains(c));
 		}
-		System.out.printf("Mano actual : %s", getHand());
-		System.out.println(getScore() + " points");
+		System.out.printf("Mano actual : %s\n", getHand());
+		System.out.printf("Puntos de la partida : %d\n", getScore());
 		System.out.printf("Puntuacion de la ronda (provisional) : %s\n",
 				getHandAnalyzer().calculateUncombinedCards(getHand()));
 
@@ -37,15 +41,14 @@ public class Human extends Player {
 
 	public void askForDraw(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		boolean option;
-		Card c;
-		option = input.readBooleanUsingChar('r', 'c', "Escribe r para robar o c para coger del mazo visible");
+		option = input.readBooleanUsingChar('d', 'b', "Escribe d para descartes o b para coger de la baraja :");
 		if (option) {
-			c = deck.drawCard();
-			getHand().add(c);
+			System.out.printf("%s coge de los descartes\n", getName());
+			getHand().add(discardPile.removeFirst());
 
 		} else {
-			c = discardPile.removeFirst();
-			getHand().add(c);
+			System.out.printf("%s coge de la baraja\n", getName());
+			getHand().add(deck.drawCard());
 		}
 	}
 
