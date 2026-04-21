@@ -115,31 +115,34 @@ public class GameEngine {
 	}
 
 	public void startGameLoop() {
+		int turn = 0;
 		boolean option, roundEnd = false;
 		while (!roundEnd) {
-
+			turn++;
 			for (int i = 0; i < players.size() && !roundEnd; i++) {
 				Player player = players.get(i);
-
+				checkAndRefillDeck();
 				System.out.println(player.toString());
 				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
 				System.out.println(deck.getCards().size());
 				player.playTurn(console, deck, discardPile);
+				if (turn > 1 && handAnalyzer.calculateUncombinedCards(player.getHand()) < (100 - player.getScore())) {
+					if (handAnalyzer.canClose(player.getHand())) {
+						if (player instanceof Human) {
+							option = console.readBooleanUsingChar('s', 'n', "¿Quieres cerrar? (s/n)");
+							if (option) {
+								endRound(player);
+								roundEnd = true;
 
-				if (handAnalyzer.canClose(player.getHand())) {
-					if (player instanceof Human) {
-						option = console.readBooleanUsingChar('s', 'n', "¿Quieres cerrar? (s/n)");
-						if (option) {
+							}
+						} else {
+
 							endRound(player);
 							roundEnd = true;
 
 						}
-					} else {
-
-						endRound(player);
-						roundEnd = true;
-
 					}
+
 				}
 			}
 		}
@@ -161,11 +164,10 @@ public class GameEngine {
 	}
 
 	private boolean checkGameEnd() {
-		for (Player player : players) {
-			if (player.getScore() >= 100) {
-				pointsGameEnd();
-				return true;
-			}
+
+		if (players.size() <= 1) {
+			pointsGameEnd();
+			return true;
 		}
 
 		if (handAnalyzer.findChinchon(players.get(0).getHand())) {
@@ -206,16 +208,19 @@ public class GameEngine {
 
 			if (player.equals(ender) && points == 0) {
 				player.setScore(player.getScore() - 10);
-			} else if (player.getScore() >= 100) {
-				pointsGameEnd();
 			} else {
 				player.setScore(points + player.getScore());
 			}
 
 		}
+		players.sort(Comparator.comparingInt(player -> player.getScore()));
 		for (Player player : players) {
 			System.out.printf("%s : %d puntos ", player.getName(), player.getScore());
+			if (player.getScore() >= 100) {
+				System.out.printf("%sELIMINADO%s ", Colors.RED, Colors.RESET);
+			}
 		}
+		eliminatePlayers();
 		System.out.println();
 	}
 
@@ -240,6 +245,11 @@ public class GameEngine {
 			discardPile.clear();
 			discardPile.add(topDiscard);
 		}
+	}
+
+	private void eliminatePlayers() {
+		players.removeIf(p -> p.getScore() >= 100);
+
 	}
 
 }
