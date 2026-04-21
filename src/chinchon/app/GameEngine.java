@@ -122,12 +122,13 @@ public class GameEngine {
 						if (player instanceof Human) {
 							option = console.readBooleanUsingChar('s', 'n', "¿Quieres cerrar? (s/n)");
 							if (option) {
+								announceClose(player);
 								endRound(player);
 								roundEnd = true;
 
 							}
 						} else {
-
+							announceClose(player);
 							endRound(player);
 							roundEnd = true;
 
@@ -222,6 +223,16 @@ public class GameEngine {
 	private void eliminatePlayers() {
 		players.removeIf(p -> p.getScore() >= 100);
 
+	}
+
+	private void announceClose(Player player) {
+		System.out.printf("%s ha cerrado!!\n", player);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 }
