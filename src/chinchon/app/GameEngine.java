@@ -43,7 +43,7 @@ public class GameEngine {
 		return instance;
 	}
 
-	public void setupGame() {
+	private void setupGame() {
 		int numPlayers = requestNumberOfPlayers();
 
 		deck = new Deck();
@@ -57,28 +57,28 @@ public class GameEngine {
 		discardPile.add(deck.drawCard());
 	}
 
-	public int requestNumberOfPlayers() {
+	private int requestNumberOfPlayers() {
 		int players;
 		System.out.println("¿Cuantos jugadores quieres añadir?");
 		players = console.readIntInRange(2, 5);
 		return players;
 	}
 
-	public boolean requestPlayerNature() {
+	private boolean requestPlayerNature() {
 		boolean player;
 		player = console.readBooleanUsingChar('h', 'i', "Introduce 'h' para humano o 'i' para IA");
 		return player;
 
 	}
 
-	public String requestPlayerName() {
+	private String requestPlayerName() {
 		String name;
 		System.out.println("Escribe su nombre :");
 		name = console.readString(15);
 		return name;
 	}
 
-	public void createPlayers(int numberOfPlayers) {
+	private void createPlayers(int numberOfPlayers) {
 		List<Card> hand = new ArrayList<Card>();
 		boolean player;
 		String name;
@@ -97,7 +97,7 @@ public class GameEngine {
 		}
 	}
 
-	public List<Card> startHand() {
+	private List<Card> startHand() {
 		List<Card> hand = new ArrayList<Card>();
 		for (int i = 0; i < 7; i++) {
 			hand.add(deck.drawCard());
@@ -105,7 +105,7 @@ public class GameEngine {
 		return hand;
 	}
 
-	public void startGameLoop() {
+	private void startGameLoop() {
 		int turn = 0;
 		boolean option, roundEnd = false;
 		while (!roundEnd) {

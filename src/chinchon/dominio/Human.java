@@ -18,10 +18,13 @@ public class Human extends Player {
 		askForDraw(input, deck, discardPile);
 		showHand();
 		discard(input, discardPile);
-		/*
-		 * try { Thread.sleep(1000); } catch (InterruptedException e) {
-		 * e.printStackTrace(); }
-		 */
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void showHand() {

@@ -21,7 +21,7 @@ public class HandAnalyzer {
 		return uncombined;
 	}
 
-	public void findSets(List<Card> auxiliarHand) {
+	private void findSets(List<Card> auxiliarHand) {
 		Value val;
 		Map<Value, List<Card>> groups = new HashMap<>();
 
@@ -38,7 +38,7 @@ public class HandAnalyzer {
 		}
 	}
 
-	public void findRuns(List<Card> auxiliarHand) {
+	private void findRuns(List<Card> auxiliarHand) {
 		Suit suit;
 		Map<Suit, List<Card>> groups = new HashMap<>();
 		for (Card card : auxiliarHand) {

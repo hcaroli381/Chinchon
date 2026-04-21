@@ -41,10 +41,6 @@ public abstract class Player {
 		this.score = score;
 	}
 
-	public void close(HandAnalyzer handAnalyzer) {
-
-	}
-
 	public abstract void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile);
 
 	public HandAnalyzer getHandAnalyzer() {
