@@ -22,6 +22,7 @@ public class GameEngine {
 	private Deck deck;
 	private List<Card> discardPile;
 	private ConsoleInput console;
+	private DeckManager deckManager;
 
 	private GameEngine() {
 		Scanner sc = new Scanner(System.in);
@@ -31,6 +32,7 @@ public class GameEngine {
 		handAnalyzer = new HandAnalyzer();
 		deck = new Deck();
 		deck.createDeck();
+		deckManager = new DeckManager();
 		setupGame();
 	}
 
@@ -47,23 +49,12 @@ public class GameEngine {
 		deck = new Deck();
 		int numberOfDecks = (numPlayers >= 3) ? 2 : 1;
 
-		for (int i = 0; i < numberOfDecks; i++) {
-			addFullSetToDeck();
-		}
-
+		deckManager.addFullSetsToDeck(deck, numberOfDecks);
 		deck.shuffle();
 		createPlayers(numPlayers);
 
 		discardPile.clear();
 		discardPile.add(deck.drawCard());
-	}
-
-	private void addFullSetToDeck() {
-		for (Suit suit : Suit.values()) {
-			for (Value value : Value.values()) {
-				deck.getCards().add(new Card(suit, value));
-			}
-		}
 	}
 
 	public int requestNumberOfPlayers() {
@@ -121,7 +112,7 @@ public class GameEngine {
 			turn++;
 			for (int i = 0; i < players.size() && !roundEnd; i++) {
 				Player player = players.get(i);
-				checkAndRefillDeck();
+				deckManager.checkAndRefillDeck(deck, discardPile);
 				System.out.println(player.toString());
 				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
 				System.out.println(deck.getCards().size());
@@ -180,14 +171,8 @@ public class GameEngine {
 
 	private void prepareNextRound() {
 		int decks;
-		deck.getCards().clear();
 		decks = (players.size() >= 3) ? 2 : 1;
-		for (int i = 0; i < decks; i++) {
-			addFullSetToDeck();
-		}
-		deck.shuffle();
-		discardPile.clear();
-		discardPile.add(deck.drawCard());
+		deckManager.prepareDeckForNewRound(deck, discardPile, decks);
 
 		for (Player player : players) {
 			player.getHand().clear();
@@ -231,19 +216,6 @@ public class GameEngine {
 		for (Player player : players) {
 			i++;
 			System.out.printf("%s : %d points\n", player.toString(), player.getScore());
-		}
-	}
-
-	public void checkAndRefillDeck() {
-		if (deck.getCards().isEmpty()) {
-			System.out.println("\n El mazo se ha agotado. Rebarajando descartes... ");
-
-			Card topDiscard = discardPile.remove(0);
-
-			deck.addCardsAndShuffle(new ArrayList<>(discardPile));
-
-			discardPile.clear();
-			discardPile.add(topDiscard);
 		}
 	}
 
