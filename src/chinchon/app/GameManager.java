@@ -1,0 +1,131 @@
+package chinchon.app;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import chinchon.dominio.Card;
+import chinchon.dominio.Deck;
+import chinchon.dominio.GameConstants;
+import chinchon.dominio.HandAnalyzer;
+import chinchon.dominio.Player;
+import chinchon.dominio.PlayerFactory;
+import chinchon.dominio.PlayerType;
+
+public class GameManager {
+	private List<Player> players;
+	private Deck deck;
+	private List<Card> discardPile;
+	private ConsoleInput console;
+	private DeckManager deckManager;
+	private HandAnalyzer handAnalyzer;
+
+	public GameManager(ConsoleInput console, DeckManager deckManager, HandAnalyzer handAnalyzer) {
+		this.players = new ArrayList<>();
+		this.discardPile = new ArrayList<>();
+		this.console = console;
+		this.deckManager = deckManager;
+		this.handAnalyzer = handAnalyzer;
+		this.deck = new Deck();
+	}
+
+	protected void setupGame() {
+		int numPlayers = requestNumberOfPlayers();
+
+		deck = new Deck();
+		int numberOfDecks = (numPlayers >= 3) ? 2 : 1;
+
+		deckManager.addFullSetsToDeck(deck, numberOfDecks);
+		deck.shuffle();
+		createPlayers(numPlayers);
+
+		discardPile.clear();
+		discardPile.add(deck.drawCard());
+	}
+
+	private int requestNumberOfPlayers() {
+		int players;
+		System.out.println("¿Cuantos jugadores quieres añadir?");
+		players = console.readIntInRange(GameConstants.MIN_PLAYERS, GameConstants.MAX_PLAYERS);
+		return players;
+	}
+
+	private boolean requestPlayerNature() {
+		boolean player;
+		player = console.readBooleanUsingChar('h', 'i', "Introduce 'h' para humano o 'i' para IA");
+		return player;
+
+	}
+
+	private void createPlayers(int numberOfPlayers) {
+		List<Card> hand = new ArrayList<Card>();
+		boolean player;
+		String name;
+		for (int i = 0; i < numberOfPlayers; i++) {
+
+			hand = startHand();
+			System.out.printf("Jugador %d :\n", i + 1);
+			player = requestPlayerNature();
+			name = requestPlayerName();
+			if (player) {
+				try {
+					players.add(PlayerFactory.createPlayer(PlayerType.HUMAN, name, hand, handAnalyzer));
+				} catch (IllegalArgumentException e) {
+					System.err.println(e);
+				}
+			} else {
+				try {
+					players.add(PlayerFactory.createPlayer(PlayerType.AI, name, hand, handAnalyzer));
+				} catch (IllegalArgumentException e) {
+					System.err.println(e);
+				}
+			}
+
+		}
+	}
+
+	private List<Card> startHand() {
+		List<Card> hand = new ArrayList<Card>();
+		for (int i = 0; i < 7; i++) {
+			hand.add(deck.drawCard());
+		}
+		return hand;
+	}
+
+	private String requestPlayerName() {
+		String name;
+		System.out.println("Escribe su nombre :");
+		name = console.readString(15);
+		return name;
+	}
+
+	protected void prepareNextRound() {
+		int decks;
+		decks = (players.size() >= 3) ? 2 : 1;
+		deckManager.prepareDeckForNewRound(deck, discardPile, decks);
+
+		for (Player player : players) {
+			player.getHand().clear();
+			for (int i = 0; i < GameConstants.INITIAL_CARDS_PER_PLAYER; i++) {
+				player.getHand().add(deck.drawCard());
+			}
+		}
+	}
+
+	protected void eliminatePlayers() {
+		players.removeIf(p -> p.getScore() >= GameConstants.ELIMINATION_SCORE);
+
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public Deck getDeck() {
+		return deck;
+	}
+
+	public List<Card> getDiscardPile() {
+		return discardPile;
+	}
+
+}
