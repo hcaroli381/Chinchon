@@ -1,7 +1,7 @@
 package chinchon.app;
 
 import java.util.Comparator;
-import java.util.List;
+
 import chinchon.dominio.HandAnalyzer;
 import chinchon.dominio.Player;
 
@@ -22,7 +22,7 @@ public class ScoreCalculator {
 		}
 
 		if (handAnalyzer.findChinchon(gameState.getPlayers().get(0).getHand())) {
-			pointsGameEnd();
+			chinchonGameEnd();
 			return true;
 		}
 
@@ -30,12 +30,24 @@ public class ScoreCalculator {
 	}
 
 	private void pointsGameEnd() {
+		Player winner = gameState.getPlayers().get(0);
+		System.out.printf("FIN DE LA PARTIDA : \n");
+		gameState.getPlayers().sort(Comparator.comparingInt(Player::getScore).reversed());
+		System.out.printf("%s gana con %d puntos!!\n", winner.toString(), winner.getScore());
+	}
+
+	private void chinchonGameEnd() {
 		int i = 0;
 		System.out.printf("FIN DE LA PARTIDA : \n");
 		gameState.getPlayers().sort(Comparator.comparingInt(Player::getScore).reversed());
 		for (Player player : gameState.getPlayers()) {
 			i++;
-			System.out.printf("%s : %d points\n", player.toString(), player.getScore());
+			if (handAnalyzer.findChinchon(player.getHand())) {
+				System.out.printf("%s : CHINCHON!!\n", player.toString());
+			} else {
+				System.out.printf("%s : %d points\n", player.toString(), player.getScore());
+			}
+
 		}
 	}
 }
