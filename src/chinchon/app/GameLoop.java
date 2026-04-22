@@ -28,9 +28,8 @@ public class GameLoop {
 		int turn = 0;
 		boolean option, roundEnd = false;
 		while (!roundEnd) {
-			turn = 0;
+			turn = turn++;
 			for (int i = 0; i < gameState.getPlayers().size() && !roundEnd; i++) {
-				turn++;
 				Player player = gameState.getPlayers().get(i);
 				Deck deck = gameState.getDeck();
 				List<Card> discardPile = gameState.getDiscardPile();
