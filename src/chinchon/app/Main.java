@@ -11,9 +11,16 @@ public class Main {
 		ConsoleInput console = new ConsoleInput(sc);
 		HandAnalyzer handAnalyzer = new HandAnalyzer();
 		DeckManager deckManager = new DeckManager();
-		GameEngine gameEngine = GameEngine.getInstance(console, handAnalyzer, deckManager);
+		GameEngine.createInstance(console, handAnalyzer, deckManager);
+		GameEngine engine = null;
+		try {
+			engine = GameEngine.getInstance(console, handAnalyzer, deckManager);
+		} catch (Exception e) {
+			System.err.println(e);
+			;
+		}
 
-		gameEngine.startGame();
+		engine.startGame();
 
 	}
 }

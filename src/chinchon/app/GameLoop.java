@@ -15,23 +15,26 @@ public class GameLoop {
 	private GameManager gameState;
 	private ConsoleInput console;
 	private HandAnalyzer handAnalyzer;
+	private DeckManager deckManager;
 
-	public GameLoop(GameManager gameState, ConsoleInput console, HandAnalyzer handAnalyzer) {
+	public GameLoop(GameManager gameState, ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager) {
 		this.gameState = gameState;
 		this.console = console;
 		this.handAnalyzer = handAnalyzer;
+		this.deckManager = deckManager;
 	}
 
 	protected void startGameLoop() {
 		int turn = 0;
 		boolean option, roundEnd = false;
 		while (!roundEnd) {
-			turn++;
+			turn = 0;
 			for (int i = 0; i < gameState.getPlayers().size() && !roundEnd; i++) {
+				turn++;
 				Player player = gameState.getPlayers().get(i);
 				Deck deck = gameState.getDeck();
 				List<Card> discardPile = gameState.getDiscardPile();
-				new DeckManager().checkAndRefillDeck(deck, discardPile);
+				deckManager.checkAndRefillDeck(deck, discardPile);
 				System.out.println(player.toString());
 				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
 				System.out.println(deck.getCards().size());

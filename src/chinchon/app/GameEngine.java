@@ -20,15 +20,22 @@ public class GameEngine {
 		this.handAnalyzer = handAnalyzer;
 		this.deckManager = deckManager;
 		this.gameState = new GameManager(console, deckManager, handAnalyzer);
-		this.gameLoop = new GameLoop(gameState, console, handAnalyzer);
+		this.gameLoop = new GameLoop(gameState, console, handAnalyzer, deckManager);
 		this.scoreCalculator = new ScoreCalculator(gameState, handAnalyzer);
 
 		gameState.setupGame();
 	}
 
-	public static GameEngine getInstance(ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager) {
+	public static void createInstance(ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager) {
 		if (instance == null) {
 			instance = new GameEngine(console, handAnalyzer, deckManager);
+		}
+	}
+
+	public static GameEngine getInstance(ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager)
+			throws Exception {
+		if (instance == null) {
+			throw new Exception("Debes hacer 'createInstance' primero");
 		}
 		return instance;
 	}
