@@ -43,6 +43,7 @@ public class GameManager {
 	}
 
 	private int requestNumberOfPlayers() {
+
 		int players;
 		System.out.println("¿Cuantos jugadores quieres añadir?");
 		players = console.readIntInRange(GameConstants.MIN_PLAYERS, GameConstants.MAX_PLAYERS);
@@ -92,9 +93,19 @@ public class GameManager {
 	}
 
 	private String requestPlayerName() {
+		String auxName;
 		String name;
 		System.out.println("Escribe su nombre :");
 		name = console.readString(15);
+		for (Player player : players) {
+			auxName = player.getName();
+
+			while (auxName.trim().equalsIgnoreCase(name)) {
+				System.err.println("Nombre ya existente. Introduzca otro nombre :");
+				name = console.readString(15);
+			}
+
+		}
 		return name;
 	}
 
