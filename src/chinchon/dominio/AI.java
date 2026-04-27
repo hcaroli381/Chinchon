@@ -18,13 +18,10 @@ public class AI extends Player {
 
 		discard = getHandAnalyzer().getBestDiscard(getHand());
 		System.out.printf("%s descarta : %s\n", getName(), discard.toString());
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+		/*
+		 * try { Thread.sleep(1000); } catch (InterruptedException e) {
+		 * e.printStackTrace(); }
+		 */
 		getHand().remove(discard);
 		discardPile.add(0, discard);
 

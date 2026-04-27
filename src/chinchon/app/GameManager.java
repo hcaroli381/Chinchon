@@ -19,6 +19,12 @@ public class GameManager {
 	private DeckManager deckManager;
 	private HandAnalyzer handAnalyzer;
 
+	/**
+	 * 
+	 * @param console      consoleInput
+	 * @param deckManager  administrador de baraja
+	 * @param handAnalyzer analizador de las manos
+	 */
 	public GameManager(ConsoleInput console, DeckManager deckManager, HandAnalyzer handAnalyzer) {
 		this.players = new ArrayList<>();
 		this.discardPile = new ArrayList<>();
@@ -28,6 +34,9 @@ public class GameManager {
 		this.deck = new Deck();
 	}
 
+	/**
+	 * Inicio de la partida
+	 */
 	protected void setupGame() {
 		int numPlayers = requestNumberOfPlayers();
 

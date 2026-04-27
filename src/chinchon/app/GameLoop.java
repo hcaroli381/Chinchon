@@ -36,7 +36,6 @@ public class GameLoop {
 				deckManager.checkAndRefillDeck(deck, discardPile);
 				System.out.println(player.toString());
 				System.out.printf("Descartes : %s   Baraja : 🂠\n", discardPile.get(0));
-				System.out.println(deck.getCards().size());
 				player.playTurn(console, deck, discardPile);
 				if (turn > 1 && handAnalyzer.calculateUncombinedCards(
 						player.getHand()) < (GameConstants.ELIMINATION_SCORE - player.getScore())) {
@@ -85,23 +84,27 @@ public class GameLoop {
 				System.out.printf("%sELIMINADO%s ", Colors.RED, Colors.RESET);
 			}
 		}
+
 		try {
 			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 		gameState.eliminatePlayers();
 		System.out.println();
 	}
 
 	private void announceClose(Player player) {
 		System.out.printf("%s ha cerrado!!\n", player);
+
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();
 		}
+
 	}
 
 }
