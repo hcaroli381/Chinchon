@@ -19,12 +19,6 @@ public class GameManager {
 	private DeckManager deckManager;
 	private HandAnalyzer handAnalyzer;
 
-	/**
-	 * 
-	 * @param console      consoleInput
-	 * @param deckManager  administrador de baraja
-	 * @param handAnalyzer analizador de las manos
-	 */
 	public GameManager(ConsoleInput console, DeckManager deckManager, HandAnalyzer handAnalyzer) {
 		this.players = new ArrayList<>();
 		this.discardPile = new ArrayList<>();
@@ -131,6 +125,10 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Elimina los jugadores cuando llegan al límite prestablecido por el
+	 * programador
+	 */
 	protected void eliminatePlayers() {
 		players.removeIf(p -> p.getScore() >= GameConstants.ELIMINATION_SCORE);
 

@@ -24,6 +24,9 @@ public class GameLoop {
 		this.deckManager = deckManager;
 	}
 
+	/**
+	 * Se encarga del flujo de los turnos, dentro de una misma ronda.
+	 */
 	protected void startGameLoop() {
 		int turn = 0;
 		boolean option, roundEnd = false;

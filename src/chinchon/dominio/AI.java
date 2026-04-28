@@ -5,6 +5,9 @@ import java.util.List;
 
 import chinchon.app.ConsoleInput;
 
+/**
+ * Inteligencia artificial que juega por sí misma, hija de la clase Player
+ */
 public class AI extends Player {
 
 	public AI(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {

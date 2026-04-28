@@ -77,6 +77,13 @@ public class ConsoleInput {
 		return valor;
 	}
 
+	/**
+	 * Lee un entero en un rango limite
+	 * 
+	 * @param lowerBound valor minimo
+	 * @param upperBound valor máximo
+	 * @return entero leido
+	 */
 	public int readIntInRange(int lowerBound, int upperBound) {
 		int valor;
 		System.out.printf("Introduce un entero entre %d y %d: ", lowerBound, upperBound);
@@ -196,6 +203,12 @@ public class ConsoleInput {
 		return resultado;
 	}
 
+	/**
+	 * lee una cadena con una longitud maxima
+	 * 
+	 * @param maxLength longitud límite
+	 * @return cadena leida por la consola
+	 */
 	public String readString(int maxLength) {
 		String s;
 		System.out.printf("Introduce una cadena (máximo %d caracteres): ", maxLength);
@@ -226,31 +239,20 @@ public class ConsoleInput {
 		return c == aff;
 	}
 
+	/**
+	 * Peticion de si o no con mensaje personalizado
+	 * 
+	 * @param affirmativeValue caracter para true
+	 * @param negativeValue    caracter para false
+	 * @param mensaje          para pedir al usuario
+	 * @return true/false segun caracter introducido
+	 */
 	public boolean readBooleanUsingChar(char affirmativeValue, char negativeValue, String mensaje) {
 		char c;
 		char aff = Character.toLowerCase(affirmativeValue);
 		char neg = Character.toLowerCase(negativeValue);
 
 		System.out.println(mensaje);
-
-		do {
-			c = Character.toLowerCase(readChar());
-			if (c != aff && c != neg) {
-				System.err.printf("Opción no válida. Introduce '%c' o '%c': ", affirmativeValue, negativeValue);
-			}
-		} while (c != aff && c != neg);
-
-		return c == aff;
-	}
-
-	public boolean readBooleanUsingCharModifiedPetition(char affirmativeValue, char negativeValue,
-			String affirmativePetition, String negativePetition) {
-		char c;
-		char aff = Character.toLowerCase(affirmativeValue);
-		char neg = Character.toLowerCase(negativeValue);
-
-		System.out.printf("Introduce '%c' para %s o '%c' para %s: ", affirmativeValue, affirmativePetition,
-				negativeValue, negativePetition);
 
 		do {
 			c = Character.toLowerCase(readChar());

@@ -1,4 +1,4 @@
-// GameEngine.java (con inyección de dependencias y Singleton)
+
 package chinchon.app;
 
 import java.util.Scanner;

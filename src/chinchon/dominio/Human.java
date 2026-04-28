@@ -5,6 +5,9 @@ import java.util.List;
 
 import chinchon.app.ConsoleInput;
 
+/**
+ * Jugador humano, el usuario decide que hacer o no
+ */
 public class Human extends Player {
 
 	public Human(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {

@@ -41,6 +41,14 @@ public abstract class Player {
 		this.score = score;
 	}
 
+	/**
+	 * Funcion que se encargara de jugar el turno, que será definida por las clases
+	 * hijas
+	 * 
+	 * @param input       consola que se encarga de hablar con el usuario
+	 * @param deck        baraja boca abajo actual
+	 * @param discardPile pila de descartes de la ronda
+	 */
 	public abstract void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile);
 
 	public HandAnalyzer getHandAnalyzer() {

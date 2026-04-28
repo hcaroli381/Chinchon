@@ -6,8 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Analiza la mano del jugador, para determinar su puntuacion, si encuentra
+ * escaleras o combinaciones, si puede cerrar o determinar el mejor descarte de
+ * la IA.
+ */
 public class HandAnalyzer {
-
+	/**
+	 * Calcula la puntuación de la ronda para sumarla al fianl.
+	 * 
+	 * @param hand mano actual del jugador
+	 * @return puntuacion a sumar
+	 */
 	public int calculateUncombinedCards(List<Card> hand) {
 		int uncombined = 0;
 		List<Card> auxiliarHand = new ArrayList<>(hand);
@@ -90,6 +100,12 @@ public class HandAnalyzer {
 		return true;
 	}
 
+	/**
+	 * Encuentra si hay chinchon
+	 * 
+	 * @param auxiliarHand mano auxiliar para la comprobacion
+	 * @return true si hay chinchon (fin de partida) o false si no lo hay
+	 */
 	public boolean findChinchon(List<Card> auxiliarHand) {
 		int ordinal, nextOrdinal;
 		if (auxiliarHand.size() < 7) {
@@ -113,6 +129,12 @@ public class HandAnalyzer {
 
 	}
 
+	/**
+	 * Da la posibilidad o se la quita al jugador de cerrar
+	 * 
+	 * @param hand mano actual del jugador
+	 * @return true si puede cerrar false si no puede hacerlo
+	 */
 	public boolean canClose(List<Card> hand) {
 
 		List<Card> auxiliarHand = new ArrayList<>(hand);
@@ -131,6 +153,12 @@ public class HandAnalyzer {
 		return false;
 	}
 
+	/**
+	 * Funcion utilizada para la IA, para que esta sepa cual es el mejor descarte
+	 * 
+	 * @param hand mano actual del jugador
+	 * @return devuelve la carta marcada como "mejor" para descartar
+	 */
 	public Card getBestDiscard(List<Card> hand) {
 		List<Card> auxHand;
 		Card discardCard = null, auxCard;
@@ -150,6 +178,13 @@ public class HandAnalyzer {
 		return discardCard;
 	}
 
+	/**
+	 * Determina que cartas deben ser marcadas como combinadas (atributo de la clase
+	 * Card)
+	 * 
+	 * @param hand mano actual del jugador
+	 * @return mano de combinadas
+	 */
 	public List<Card> getCombinedCards(List<Card> hand) {
 		List<Card> combined = new ArrayList<Card>();
 		List<Card> auxHand = new ArrayList<Card>(hand);
