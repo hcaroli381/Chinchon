@@ -60,44 +60,39 @@ Chinchon
 ```
 
 # Explicación de clases
+
 Click en el nombre de cada clase para ver su explicación detallada.
 
-## [GameManager](docs/clases/gameManager.md)
-La encargada de gestionar el estado del juego.
+## Clases de la aplicación (app)
+
+- [**GameEngine**](docs/clases/gameEngine.md) - Clase principal del juego usando patrón Singleton. Coordina el flujo general.
+- [**GameManager**](docs/clases/gameManager.md) - Gestiona el estado del juego (jugadores, mazo, descartes).
+- [**GameLoop**](docs/clases/gameLoop.md) - Ejecuta el bucle principal de turnos y rondas.
+- [**ScoreCalculator**](docs/clases/scoreCalculator.md) - Calcula la puntuación y determina el final de la partida.
+- [**DeckManager**](docs/clases/deckManager.md) - Administra la baraja y su preparación.
+- [**ConsoleInput**](docs/clases/consoleInput.md) - Gestiona la entrada del usuario desde la consola.
+- [**Main**](docs/clases/main.md) - Punto de entrada de la aplicación.
+
+## Clases del dominio (dominio)
+
+### Jugadores
+- [**Player**](docs/clases/player.md) - Clase abstracta base para todos los jugadores.
+- [**Human**](docs/clases/human.md) - Jugador humano con control interactivo.
+- [**AI**](docs/clases/ai.md) - Jugador controlado por inteligencia artificial.
+- [**PlayerFactory**](docs/clases/playerFactory.md) - Factory para crear jugadores del tipo especificado.
+- [**PlayerType**](docs/clases/playerType.md) - Enum con tipos de jugadores disponibles.
+
+### Cartas y Baraja
+- [**Card**](docs/clases/card.md) - Representa una carta individual con palo y valor.
+- [**Deck**](docs/clases/deck.md) - Gestiona la baraja y sus operaciones.
+- [**Suit**](docs/clases/suit.md) - Enum con los cuatro palos de la baraja española.
+- [**Value**](docs/clases/value.md) - Enum con los valores de las cartas.
+
+### Análisis y Utilidades
+- [**HandAnalyzer**](docs/clases/handAnalyzer.md) - Analiza manos, detecta combinaciones y calcula puntuación.
+- [**GameConstants**](docs/clases/gameConstants.md) - Constantes centralizadas del juego.
+- [**Colors**](docs/clases/colors.md) - Códigos ANSI para colorear la salida de la consola.
 
 
-## GameLoop
-Encargada del bucle principal del juego, turnos, cierre de ronda y cálculo de puntos.
-
-### Funciones
-1. startGameLoop()
-
-Responsabilidad: Ejecutar el bucle principal de turnos y rondas.
-
-Bucle de rondas: Mientras no termine la ronda (!roundEnd).
-Bucle de turnos: Para cada jugador en la ronda.
-Verificación de mazo: Usa deckManager.checkAndRefillDeck para rellenar el mazo si está vacío.
-Turno del jugador: Llama a player.playTurn.
-Verificación de cierre: Si el jugador puede cerrar (puntos < 100 - puntuación actual y turn > 1), se le pregunta si quiere cerrar (si es humano) o se cierra automáticamente (si es IA).
-Fin de ronda: Llama a endRound si un jugador cierra.
-
-2. endRound(Player ender)
-
-Responsabilidad: Finalizar la ronda y calcular puntos.
-
-Verificar Chinchón: Si el jugador que cerró tiene un Chinchón, se anuncia.
-Calcular puntos: Para cada jugador, calcula los puntos sin combinar (handAnalyzer.calculateUncombinedCards).
-Actualizar puntuaciones: Si el jugador que cerró tiene 0 puntos sin combinar, se le restan 10 puntos. A los demás, se les suman sus puntos sin combinar.
-Ordenar jugadores: Por puntuación.
-Mostrar resultados: Puntos de cada jugador y si fueron eliminados.
-Eliminar jugadores: Llama a gameState.eliminatePlayers.
-
-3. announceClose(Player player)
-
-Responsabilidad: Anunciar que un jugador ha cerrado.
-Acciones:
-
-Muestra un mensaje indicando que el jugador ha cerrado.
-Espera 5 segundos (Thread.sleep(5000)).
 
 
