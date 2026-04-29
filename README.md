@@ -148,19 +148,77 @@ Proporcionan funcionalidad auxiliar:
 
 ---
 
-## 🚀 Cómo Ejecutar
-
-1. Compila el proyecto
-2. Ejecuta la clase `Main`
-3. Sigue las instrucciones en consola
-
----
-
 ## 📝 Notas de Desarrollo
 
 - El proyecto usa la baraja española estándar (40 cartas)
 - La IA toma decisiones basadas en análisis de puntuación
 - Se incluyen colores ANSI para mejor experiencia visual en la consola
+
+## 🚦 Flujo de ejecución
+
+A continuación se describe, paso a paso, el flujo de interacción principal durante una partida. Cada paso incluye una captura ubicada en `docs/screenshots/`.
+
+1) Selección del número de jugadores (2-5)
+
+  ![Seleccionar número de jugadores](docs/screenshots/1.png)
+
+2) Para cada jugador: elegir tipo (IA o Humano)
+
+  ![Elegir tipo de jugador](docs/screenshots/2.png)
+
+3) Asignar nombre al jugador
+
+  ![Introducir nombre del jugador](docs/screenshots/3.png)
+
+4) Turno de jugador humano — interfaz de turno
+
+  - Se muestra la mano actual (las cartas combinadas aparecen en verde).
+  - Se muestra la puntuación provisional de la ronda (si se cerrara ahora).
+  - Se muestra la puntuación total acumulada.
+  - Se muestra la carta superior de la pila de descartes y la opción de coger descartes o baraja.
+
+  ![Interfaz turno humano](docs/screenshots/4.png)
+
+5) Acción del jugador y descarte
+
+  - Tras elegir, se muestra la acción (por ejemplo: "Hugo coge de la baraja").
+  - La mano temporal puede tener 8 cartas; el jugador selecciona la posición (1-8) para descartar.
+
+  ![Acción y descarte humano](docs/screenshots/5.png)
+
+6) Turno de IA
+
+  - No se muestran las cartas privadas de la IA.
+  - Se muestra la carta superior de la pila de descartes, la acción tomada por la IA (coger de baraja o descartes) y la carta descartada por la IA.
+
+  ![Turno IA](docs/screenshots/6.png)
+
+7) Cierre de ronda
+
+  - Cuando un jugador cierra se anuncia por consola, se calculan y actualizan las puntuaciones y se muestra la clasificación antes de la siguiente ronda.
+
+  ![Cierre de ronda](docs/screenshots/7.png)
+
+8) Eliminación de jugadores
+
+  - Si un jugador supera los **100** puntos aparece marcado como **ELIMINADO** y no participa en las siguientes rondas.
+
+  ![Jugador eliminado](docs/screenshots/8.png)
+
+9) Fin de la partida
+
+  - Al terminar la partida se muestra el ganador y la puntuación final.
+
+  ![Fin de partida](docs/screenshots/9.png)
+
+El flujo termina cuando la partida ha finalizado.
+
+## Aclaraciones / Notas
+
+- **Número de barajas**: Si hay 3 o más jugadores se usan 2 barajas; cuando queden 2 jugadores se jugará con 1 baraja.
+- **Reabastecer mazo**: Si la baraja se agota, se baraja la pila de descartes (manteniendo la carta superior) y se reutiliza como nuevo mazo.
+- **Pausas**: Se usan pausas (`Thread.sleep`) para dar tiempo a visualizar las acciones de la IA.
+
 
 
 
