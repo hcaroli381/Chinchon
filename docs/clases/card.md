@@ -1,47 +1,84 @@
-## Card
+# ♠️ Card
 
-Clase que representa una carta individual de la baraja española. Contiene el palo y valor de la carta, además de un estado que indica si está combinada o no.
+> **Responsabilidad**: Representar una carta individual de la baraja.
 
-### Funciones
+**Paquete**: `chinchon.dominio`
 
-1. **Card(Suit suit, Value value)**
+**Descripción**: Contiene el palo y valor de la carta, además de un estado que indica si está combinada en una escalera o grupo.
 
-   Constructor que inicializa una carta.
+---
 
-   - Asigna el palo (suit) de la carta
-   - Asigna el valor (value) de la carta
-   - Inicializa la bandera combined como false (sin combinar)
+## Métodos
 
-2. **toString()**
+### 1️⃣ `Card(Suit suit, Value value)`
 
-   Responsabilidad: Representar la carta como texto con colores.
+**Tipo**: Constructor
 
-   - Si la carta está combinada: la muestra con color verde (Colors.GREEN)
-   - Si no está combinada: la muestra en color normal
-   - Formato: "número de palo" o "número de palo" según sea combinada
+**Descripción**: Inicializa una carta con palo y valor.
 
-3. **getSuit()**
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `suit` | Suit | El palo de la carta (OROS, COPAS, BASTOS, ESPADAS) |
+| `value` | Value | El valor de la carta (UNO-SIETE, SOTA, CABALLO, REY) |
 
-   Responsabilidad: Obtener el palo de la carta.
+**Lógica**:
+- Asigna el palo y valor proporcionados
+- Inicializa `combined` como false (sin combinar)
 
-   - Retorna el enum Suit de la carta
+---
 
-4. **getValue()**
+### 2️⃣ `toString()`
 
-   Responsabilidad: Obtener el valor de la carta.
+**Tipo**: Método público (override)
 
-   - Retorna el enum Value de la carta
+**Retorna**: `String` - Representación textual de la carta
 
-5. **setCombined(boolean combined)**
+**Descripción**: Genera una representación visual de la carta.
 
-   Responsabilidad: Establecer el estado de combinación de la carta.
+**Lógica**:
+- Si la carta está combinada: muestra en color verde (Colors.GREEN)
+- Si no está combinada: muestra en color normal
+- Formato: "número de palo"
 
-   - Actualiza la bandera que indica si la carta está combinada en una escalera o grupo
+---
 
-6. **compareTo(Card other)**
+### 3️⃣ `getSuit()`
 
-   Responsabilidad: Comparar esta carta con otra (implementa Comparable<Card>).
+**Tipo**: Método público
 
-   - Primero compara por palo (suit)
-   - Si los palos son iguales, compara por valor numérico
-   - Retorna un valor negativo si esta carta es menor, 0 si son iguales, positivo si es mayor
+**Retorna**: `Suit` - El palo de la carta
+
+---
+
+### 4️⃣ `getValue()`
+
+**Tipo**: Método público
+
+**Retorna**: `Value` - El valor de la carta
+
+---
+
+### 5️⃣ `setCombined(boolean combined)`
+
+**Tipo**: Método público
+
+**Descripción**: Establece si la carta está combinada en una escalera o grupo.
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `combined` | boolean | true si está combinada, false si no |
+
+---
+
+### 6️⃣ `compareTo(Card other)` (override)
+
+**Tipo**: Método público
+
+**Retorna**: `int` - Valor de comparación
+
+**Descripción**: Compara esta carta con otra para ordenamiento (implementa Comparable<Card>).
+
+**Lógica de comparación**:
+1. Primero compara por palo (suit)
+2. Si los palos son iguales, compara por valor numérico
+3. Retorna: negativo si menor, 0 si igual, positivo si mayor

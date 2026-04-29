@@ -1,75 +1,120 @@
-## Player
+# 👤 Player (Abstracta)
 
-Clase abstracta que representa un jugador genérico del juego. Define la estructura común que tanto jugadores humanos como IA deben implementar.
+> **Responsabilidad**: Definir la estructura base de todos los jugadores.
 
-### Funciones
+**Paquete**: `chinchon.dominio`
 
-1. **Player(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer)**
+**Descripción**: Clase abstracta que define la interfaz común que deben cumplir tanto jugadores humanos (Human) como controlados por IA (AI).
 
-   Constructor protegido que inicializa un jugador.
+---
 
-   - Asigna el nombre del jugador
-   - Asigna la mano (lista de cartas) del jugador
-   - Asigna la puntuación inicial
-   - Asigna el analizador de manos
+## Métodos
 
-2. **playTurn(ConsoleInput input, Deck deck, List<Card> discardPile)**
+### 1️⃣ `Player(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer)` (protegido)
 
-   Responsabilidad: Ejecutar el turno del jugador (método abstracto).
+**Tipo**: Constructor
 
-   - Debe ser implementado por las clases hijas (Human y AI)
-   - Define el comportamiento específico del turno según el tipo de jugador
+**Descripción**: Inicializa un jugador base (solo llamable desde subclases).
 
-3. **getName()**
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `name` | String | Nombre del jugador |
+| `hand` | List<Card> | Mano inicial del jugador |
+| `score` | int | Puntuación inicial |
+| `handAnalyzer` | HandAnalyzer | Analizador de manos |
 
-   Responsabilidad: Obtener el nombre del jugador.
+---
 
-   - Retorna el nombre del jugador
+### 2️⃣ `playTurn(ConsoleInput input, Deck deck, List<Card> discardPile)` (abstracto)
 
-4. **setName(String name)**
+**Tipo**: Método abstracto
 
-   Responsabilidad: Establecer el nombre del jugador.
+**Descripción**: Define el comportamiento del turno de cada jugador. Debe ser implementado por subclases.
 
-   - Actualiza el nombre del jugador
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `input` | ConsoleInput | Gestor de entrada |
+| `deck` | Deck | Baraja boca abajo |
+| `discardPile` | List<Card> | Pila de descartes |
 
-5. **getHand()**
+---
 
-   Responsabilidad: Obtener la mano del jugador.
+### 3️⃣ `getName()`
 
-   - Retorna la lista de cartas del jugador
+**Tipo**: Método público
 
-6. **setHand(List<Card> hand)**
+**Retorna**: `String` - El nombre del jugador
 
-   Responsabilidad: Establecer la mano del jugador.
+---
 
-   - Actualiza la mano del jugador
+### 4️⃣ `setName(String name)`
 
-7. **getScore()**
+**Tipo**: Método público
 
-   Responsabilidad: Obtener la puntuación acumulada del jugador.
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `name` | String | Nuevo nombre del jugador |
 
-   - Retorna la puntuación total de la partida
+---
 
-8. **setScore(int score)**
+### 5️⃣ `getHand()`
 
-   Responsabilidad: Establecer la puntuación del jugador.
+**Tipo**: Método público
 
-   - Actualiza la puntuación total del jugador
+**Retorna**: `List<Card>` - La lista de cartas del jugador
 
-9. **getHandAnalyzer()**
+---
 
-   Responsabilidad: Obtener el analizador de manos del jugador.
+### 6️⃣ `setHand(List<Card> hand)`
 
-   - Retorna la instancia de HandAnalyzer
+**Tipo**: Método público
 
-10. **setHandAnalyzer(HandAnalyzer handAnalyzer)**
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `hand` | List<Card> | Nueva mano del jugador |
 
-    Responsabilidad: Establecer el analizador de manos del jugador.
+---
 
-    - Actualiza la instancia de HandAnalyzer
+### 7️⃣ `getScore()`
 
-11. **toString()**
+**Tipo**: Método público
 
-    Responsabilidad: Representar al jugador como texto.
+**Retorna**: `int` - La puntuación acumulada total
 
-    - Retorna el nombre del jugador con color cyan (Colors.CYAN)
+---
+
+### 8️⃣ `setScore(int score)`
+
+**Tipo**: Método público
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `score` | int | Nueva puntuación total |
+
+---
+
+### 9️⃣ `getHandAnalyzer()`
+
+**Tipo**: Método público
+
+**Retorna**: `HandAnalyzer` - El analizador de manos
+
+---
+
+### 🔟 `setHandAnalyzer(HandAnalyzer handAnalyzer)`
+
+**Tipo**: Método público
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `handAnalyzer` | HandAnalyzer | Nuevo analizador de manos |
+
+---
+
+### 1️⃣1️⃣ `toString()`
+
+**Tipo**: Método público (override)
+
+**Retorna**: `String` - Nombre del jugador coloreado en cyan
+
+**Formato**: Nombre en color CYAN (Colors.CYAN)

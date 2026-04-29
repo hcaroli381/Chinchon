@@ -1,17 +1,33 @@
-## PlayerType
+# 🎭 PlayerType (Enum)
 
-Enum que define los tipos de jugadores disponibles en el juego.
+> **Responsabilidad**: Definir tipos de jugadores disponibles.
 
-### Valores
+**Paquete**: `chinchon.dominio`
 
-1. **HUMAN**
+**Descripción**: Enum que especifica los tipos de jugadores que pueden crearse en el juego.
 
-   Tipo de jugador controlado por un usuario humano que interactúa a través de la consola.
+---
 
-2. **AI**
+## Valores
 
-   Tipo de jugador controlado por inteligencia artificial que juega de forma autónoma.
+| Tipo | Descripción |
+|------|-------------|
+| **HUMAN** | Jugador controlado por un usuario humano que interactúa a través de la consola |
+| **AI** | Jugador controlado por inteligencia artificial que juega de forma autónoma |
 
-### Propósito
+---
 
-Este enum se utiliza junto con PlayerFactory para especificar qué tipo de jugador se desea crear, asegurando que solo existan tipos de jugadores válidos en la aplicación.
+## Uso
+
+Se utiliza junto con `PlayerFactory` para especificar qué tipo de jugador se desea crear:
+
+```java
+Player player = PlayerFactory.createPlayer(PlayerType.HUMAN, "Juan", hand, analyzer);
+Player bot = PlayerFactory.createPlayer(PlayerType.AI, "Bot", hand, analyzer);
+```
+
+---
+
+## Propósito
+
+Este enum asegura que solo existan tipos de jugadores válidos en la aplicación, proporcionando type-safety y facilitando la extensión futura a nuevos tipos de jugadores.

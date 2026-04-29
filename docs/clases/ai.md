@@ -1,35 +1,74 @@
-## AI
+# 🤖 AI
 
-Clase que representa un jugador controlado por inteligencia artificial. Extiende la clase Player e implementa la lógica para que la IA pueda jugar de forma autónoma tomando decisiones optimizadas.
+> **Responsabilidad**: Representar un jugador controlado por inteligencia artificial.
 
-### Funciones
+**Paquete**: `chinchon.dominio`
 
-1. **AI(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer)**
+**Hereda de**: `Player`
 
-   Constructor que inicializa un jugador IA.
+**Descripción**: Implementa la lógica para que la IA juegue de forma autónoma, tomando decisiones optimizadas basadas en el análisis de la mano actual.
 
-   - Llama al constructor de la clase padre (Player)
-   - Inicializa la IA con nombre, mano vacía y puntuación 0
+---
 
-2. **playTurn(ConsoleInput input, Deck deck, List<Card> discardPile)**
+## Métodos
 
-   Responsabilidad: Ejecutar el turno completo del jugador IA.
+### 1️⃣ `AI(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer)`
 
-   - Decide si coger del descarte o la baraja (draw)
-   - Obtiene la mejor carta para descartar (handAnalyzer.getBestDiscard)
-   - Muestra qué carta va a descartar
-   - Elimina la carta de la mano
-   - Agrega la carta al principio de la pila de descartes
-   - Espera 1 segundo para sincronización visual
+**Tipo**: Constructor
 
-3. **draw(Deck deck, List<Card> discardPile)**
+**Descripción**: Inicializa un jugador controlado por IA.
 
-   Responsabilidad: Decidir si coger del descarte o la baraja (método privado).
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `name` | String | Nombre del jugador |
+| `hand` | List<Card> | Mano inicial del jugador |
+| `score` | int | Puntuación inicial |
+| `handAnalyzer` | HandAnalyzer | Analizador de manos |
 
-   - Crea una copia temporal de la mano actual
-   - Calcula los puntos con la mano actual
-   - Calcula los puntos con la mano + descarte
-   - Si los puntos con descarte son menores o iguales, coge del descarte
-   - Si los puntos con descarte son mayores, coge de la baraja
-   - Muestra qué acción tomó
-   - Espera 1 segundo antes de retornar
+**Lógica**:
+- Llama al constructor de la clase padre (Player)
+- Inicializa la IA con los parámetros proporcionados
+
+---
+
+### 2️⃣ `playTurn(ConsoleInput input, Deck deck, List<Card> discardPile)` (override)
+
+**Tipo**: Método público
+
+**Descripción**: Ejecuta el turno completo del jugador IA.
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `input` | ConsoleInput | Gestor de entrada (no utilizado) |
+| `deck` | Deck | Baraja boca abajo |
+| `discardPile` | List<Card> | Pila de descartes |
+
+**Lógica**:
+- Decide inteligentemente si coger del descarte o baraja
+- Obtiene la mejor carta para descartar
+- Muestra la acción al usuario
+- Elimina la carta de la mano
+- Agrega la carta a la pila de descartes
+- Espera 1 segundo para mejor visualización
+
+---
+
+### 3️⃣ `draw(Deck deck, List<Card> discardPile)` (privado)
+
+**Tipo**: Método privado
+
+**Descripción**: Decide inteligentemente si coger del descarte o de la baraja.
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `deck` | Deck | Baraja boca abajo |
+| `discardPile` | List<Card> | Pila de descartes |
+
+**Lógica**:
+- Crea copia temporal de la mano actual
+- Calcula puntos con mano actual
+- Calcula puntos si agrega carta del descarte
+- **Estrategia IA**: Si puntos con descarte ≤ puntos actuales → coge descarte
+- En caso contrario → coge de la baraja
+- Muestra la decisión tomada
+- Espera 1 segundo para sincronización visual

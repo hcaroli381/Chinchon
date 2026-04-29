@@ -1,64 +1,48 @@
-## Value
+# 🔢 Value (Enum)
 
-Enum que representa los valores de las cartas de la baraja española utilizada en el juego Chinchón.
+> **Responsabilidad**: Representar los valores de las cartas.
 
-### Valores
+**Paquete**: `chinchon.dominio`
 
-1. **UNO** (1)
+**Descripción**: Define todos los valores válidos en la baraja española (1-7, Sota, Caballo, Rey) con sus valores numéricos para puntuación.
 
-   Carta de valor 1.
+---
 
-2. **DOS** (2)
+## Valores
 
-   Carta de valor 2.
+| Valor | Número | Descripción |
+|-------|--------|-------------|
+| **UNO** | 1 | Carta de valor 1 |
+| **DOS** | 2 | Carta de valor 2 |
+| **TRES** | 3 | Carta de valor 3 |
+| **CUATRO** | 4 | Carta de valor 4 |
+| **CINCO** | 5 | Carta de valor 5 |
+| **SEIS** | 6 | Carta de valor 6 |
+| **SIETE** | 7 | Carta de valor 7 |
+| **SOTA** | 10 | Figura - Sota |
+| **CABALLO** | 11 | Figura - Caballo |
+| **REY** | 12 | Figura - Rey |
 
-3. **TRES** (3)
+---
 
-   Carta de valor 3.
+## Métodos
 
-4. **CUATRO** (4)
+### 1️⃣ `Value(int number)` (constructor)
 
-   Carta de valor 4.
+**Tipo**: Constructor del enum
 
-5. **CINCO** (5)
+**Descripción**: Asigna un valor numérico a cada carta.
 
-   Carta de valor 5.
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `number` | int | Valor numérico para puntuación |
 
-6. **SEIS** (6)
+---
 
-   Carta de valor 6.
+### 2️⃣ `getNumber()`
 
-7. **SIETE** (7)
+**Tipo**: Método público
 
-   Carta de valor 7.
+**Retorna**: `int` - El valor numérico de la carta
 
-8. **SOTA** (10)
-
-   Carta de la figura Sota con valor 10.
-
-9. **CABALLO** (11)
-
-   Carta de la figura Caballo con valor 11.
-
-10. **REY** (12)
-
-    Carta de la figura Rey con valor 12.
-
-### Funciones
-
-1. **Value(int number)**
-
-   Constructor del enum que asigna un valor numérico a cada carta.
-
-   - Asigna el valor que tendrá la carta para cálculos de puntuación
-
-2. **getNumber()**
-
-   Responsabilidad: Obtener el valor numérico de la carta.
-
-   - Retorna el número asociado al valor de la carta
-   - Se utiliza para calcular la puntuación y ordenar cartas
-
-### Propósito
-
-Este enum define todos los valores válidos en la baraja española del juego Chinchón, asegurando que solo se utilicen valores correctos y facilitando el cálculo de puntuaciones.
+**Descripción**: Retorna el valor usado para cálculos de puntuación y ordenamiento.

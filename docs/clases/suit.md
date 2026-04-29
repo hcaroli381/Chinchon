@@ -1,40 +1,42 @@
-## Suit
+# 🏅 Suit (Enum)
 
-Enum que representa los cuatro palos de la baraja española utilizada en el juego Chinchón.
+> **Responsabilidad**: Representar los palos de la baraja.
 
-### Valores
+**Paquete**: `chinchon.dominio`
 
-1. **OROS** (🟡 - Emoji de círculo amarillo)
+**Descripción**: Define los cuatro palos de la baraja española con sus símbolos emoji correspondientes.
 
-   Representa el palo de oros (monedas) de la baraja española.
+---
 
-2. **COPAS** (🏆 - Emoji de copa/trofeo)
+## Valores
 
-   Representa el palo de copas de la baraja española.
+| Palo | Símbolo | Descripción |
+|------|---------|-------------|
+| **OROS** | 🟡 | Palo de oros (monedas) de la baraja española |
+| **COPAS** | 🏆 | Palo de copas (cálices) de la baraja española |
+| **BASTOS** | 🌿 | Palo de bastos (palillos/flores) de la baraja española |
+| **ESPADAS** | ⚔️ | Palo de espadas de la baraja española |
 
-3. **BASTOS** (🌿 - Emoji de árbol/rama)
+---
 
-   Representa el palo de bastos (palillos/flores) de la baraja española.
+## Métodos
 
-4. **ESPADAS** (⚔️ - Emoji de espadas)
+### 1️⃣ `Suit(String symbol)` (constructor)
 
-   Representa el palo de espadas de la baraja española.
+**Tipo**: Constructor del enum
 
-### Funciones
+**Descripción**: Asigna un símbolo emoji a cada palo.
 
-1. **Suit(String symbol)**
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `symbol` | String | Símbolo emoji del palo |
 
-   Constructor del enum que asigna un símbolo emoji a cada palo.
+---
 
-   - Asigna el símbolo visual a cada palo
+### 2️⃣ `getSymbol()`
 
-2. **getSymbol()**
+**Tipo**: Método público
 
-   Responsabilidad: Obtener el símbolo visual del palo.
+**Retorna**: `String` - El símbolo emoji del palo
 
-   - Retorna el emoji correspondiente al palo
-   - Se usa para mostrar las cartas en la consola de forma visual
-
-### Propósito
-
-Este enum facilita el manejo de los palos en el juego, asegurando que solo se utilicen los cuatro palos válidos de la baraja española y proporcionando símbolos visuales para una mejor presentación en consola.
+**Descripción**: Retorna el símbolo visual del palo para mostrar en consola.

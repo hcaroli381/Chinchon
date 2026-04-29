@@ -1,81 +1,53 @@
-## Colors
+# 🎨 Colors
 
-Clase utilizada para definir códigos de color ANSI que permite mostrar texto coloreado en la consola. Proporciona colores normales, colores brillantes y fondos de color.
+> **Responsabilidad**: Definir códigos ANSI para colores en consola.
 
-### Colores Básicos
+**Paquete**: `chinchon.dominio`
 
-1. **BLACK** - Negro
+**Descripción**: Centraliza todos los códigos ANSI para mostrar texto coloreado en la consola. Incluye colores básicos, brillantes y fondos de color.
 
-   Código: \u001B[30m
+---
 
-2. **RED** - Rojo
+## Colores Básicos
 
-   Código: \u001B[31m
+| Constante | Código | Uso |
+|-----------|--------|-----|
+| **BLACK** | \u001B[30m | Negro |
+| **RED** | \u001B[31m | Rojo |
+| **GREEN** | \u001B[32m | Verde (cartas combinadas) |
+| **YELLOW** | \u001B[33m | Amarillo |
+| **BLUE** | \u001B[34m | Azul |
+| **PURPLE** | \u001B[35m | Púrpura |
+| **CYAN** | \u001B[36m | Cian (nombres de jugadores) |
+| **WHITE** | \u001B[37m | Blanco |
 
-3. **GREEN** - Verde
+---
 
-   Código: \u001B[32m
+## Colores Brillantes
 
-4. **YELLOW** - Amarillo
+| Constante | Código | Descripción |
+|-----------|--------|-------------|
+| **BLACK_BRIGHT** | \u001B[90m | Negro brillante |
+| **RED_BRIGHT** | \u001B[91m | Rojo brillante |
+| **GREEN_BRIGHT** | \u001B[92m | Verde brillante |
+| **YELLOW_BRIGHT** | \u001B[93m | Amarillo brillante |
+| **BLUE_BRIGHT** | \u001B[94m | Azul brillante |
+| **PURPLE_BRIGHT** | \u001B[95m | Púrpura brillante |
+| **CYAN_BRIGHT** | \u001B[96m | Cian brillante |
+| **WHITE_BRIGHT** | \u001B[97m | Blanco brillante |
 
-   Código: \u001B[33m
+---
 
-5. **BLUE** - Azul
+## Fondos de Color
 
-   Código: \u001B[34m
+Disponibles fondos para todos los colores básicos (40-47):
+- **BLACK_BACKGROUND**, **RED_BACKGROUND**, **GREEN_BACKGROUND**, **YELLOW_BACKGROUND**, **BLUE_BACKGROUND**, **PURPLE_BACKGROUND**, **CYAN_BACKGROUND**, **WHITE_BACKGROUND**
 
-6. **PURPLE** - Púrpura
+---
 
-   Código: \u001B[35m
+## Propósito
 
-7. **CYAN** - Cian
-
-   Código: \u001B[36m
-
-8. **WHITE** - Blanco
-
-   Código: \u001B[37m
-
-### Colores Brillantes
-
-9. **BLACK_BRIGHT** - Negro brillante
-
-   Código: \u001B[90m
-
-10. **RED_BRIGHT** - Rojo brillante
-
-    Código: \u001B[91m
-
-11. **GREEN_BRIGHT** - Verde brillante
-
-    Código: \u001B[92m
-
-12. **YELLOW_BRIGHT** - Amarillo brillante
-
-    Código: \u001B[93m
-
-13. **BLUE_BRIGHT** - Azul brillante
-
-    Código: \u001B[94m
-
-14. **PURPLE_BRIGHT** - Púrpura brillante
-
-    Código: \u001B[95m
-
-15. **CYAN_BRIGHT** - Cian brillante
-
-    Código: \u001B[96m
-
-16. **WHITE_BRIGHT** - Blanco brillante
-
-    Código: \u001B[97m
-
-### Fondos de Color
-
-17. **BLACK_BACKGROUND**, **RED_BACKGROUND**, **GREEN_BACKGROUND**, **YELLOW_BACKGROUND**, **BLUE_BACKGROUND**, **PURPLE_BACKGROUND**, **CYAN_BACKGROUND**, **WHITE_BACKGROUND**
-
-    Códigos de fondos de color correspondientes (40-47).
-
-### Propósito
-
-Esta clase es una utilidad que centraliza todos los códigos ANSI para colorear la salida de la consola, mejorando la legibilidad y experiencia visual del juego al permitir diferenciar elementos importantes (nombres de jugadores en cyan, cartas combinadas en verde, etc.).
+Esta clase centraliza todos los códigos ANSI para mejorar la presentación visual del juego en consola. Se utiliza para:
+- Resaltar nombres de jugadores (CYAN)
+- Destacar cartas combinadas (GREEN)
+- Mejorar la legibilidad general de la interfaz

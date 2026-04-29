@@ -1,25 +1,56 @@
-## Funciones
+# 🎯 GameEngine
 
-1. createInstance
+> **Responsabilidad**: Coordinar el flujo general del juego.
 
-Crea una nueva instancia de GameEngine si no existe.
+**Paquete**: `chinchon.app`
 
-2. getInstance()
+**Patrón**: Singleton
 
-Lanza IllegalStateException si la instancia no ha sido inicializada.
+**Descripción**: Clase principal del juego que actúa como punto central de coordinación. Delega tareas específicas a otras clases (GameManager, GameLoop, ScoreCalculator) y mantiene una única instancia durante toda la ejecución.
 
-Acciones:
+---
 
- - Retorna la instancia única de GameEngine.
+## Métodos
 
+### 1️⃣ `createInstance(ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager)` (estático)
 
-3. startGame()
-Inicia el bucle principal del juego.
-Acciones:
+**Tipo**: Método estático de inicialización
 
- - Bucle de juego: Mientras no termine el juego (!gameEnd).
- - Preparar ronda: Llama a gameState.prepareNextRound().
- - Ejecutar ronda: Llama a gameLoop.startGameLoop().
- - Verificar fin del juego: Llama a scoreCalculator.checkGameEnd().
- - Mensaje de nueva ronda: Muestra un mensaje al inicio de cada ronda.
+**Descripción**: Crea la única instancia de GameEngine si no existe.
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `console` | ConsoleInput | Gestor de entrada del usuario |
+| `handAnalyzer` | HandAnalyzer | Analizador de manos |
+| `deckManager` | DeckManager | Gestor de la baraja |
+
+---
+
+### 2️⃣ `getInstance(ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager)` (estático)
+
+**Tipo**: Método estático
+
+**Retorna**: `GameEngine` - La instancia única de GameEngine
+
+**Descripción**: Retorna la instancia única de GameEngine. Lanza IllegalStateException si no ha sido inicializada con createInstance.
+
+**Lógica**:
+- Verifica que la instancia haya sido creada
+- Si no existe, lanza excepción
+- Retorna la instancia única del juego
+
+---
+
+### 3️⃣ `startGame()`
+
+**Tipo**: Método público
+
+**Descripción**: Inicia el bucle principal del juego.
+
+**Lógica**:
+- Bucle principal: Mientras el juego no haya terminado (!gameEnd)
+- Prepara la siguiente ronda: Llama a `gameState.prepareNextRound()`
+- Ejecuta la ronda: Llama a `gameLoop.startGameLoop()`
+- Verifica fin: Llama a `scoreCalculator.checkGameEnd()`
+- Muestra mensaje de nueva ronda al inicio de cada iteración
 

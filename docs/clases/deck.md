@@ -1,48 +1,83 @@
-## Deck
+# 🃏 Deck
 
-Clase que representa la baraja del juego. Gestiona la colección de cartas, permite barajar y extraer cartas según sea necesario.
+> **Responsabilidad**: Gestionar la colección de cartas de la baraja.
 
-### Funciones
+**Paquete**: `chinchon.dominio`
 
-1. **Deck()**
+**Descripción**: Almacena las cartas, permite crear barajas completas, barajarlas y extraer cartas durante el juego.
 
-   Constructor que inicializa el mazo.
+---
 
-   - Crea una ArrayList vacía para almacenar las cartas
+## Métodos
 
-2. **createDeck()**
+### 1️⃣ `Deck()`
 
-   Responsabilidad: Crear un mazo completo de cartas.
+**Tipo**: Constructor
 
-   - Limpia la lista de cartas actual
-   - Itera sobre todos los palos (Suit.values())
-   - Para cada palo, itera sobre todos los valores (Value.values())
-   - Crea una carta para cada combinación y la agrega
+**Descripción**: Inicializa el mazo con una lista vacía.
 
-3. **shuffle()**
+---
 
-   Responsabilidad: Barajar las cartas del mazo.
+### 2️⃣ `createDeck()`
 
-   - Usa Collections.shuffle para mezclar aleatoriamente el orden de las cartas
+**Tipo**: Método público
 
-4. **drawCard()**
+**Descripción**: Crea un mazo completo de cartas desde cero.
 
-   Responsabilidad: Extraer la primera carta del mazo.
+**Lógica**:
+- Limpia la lista de cartas actual
+- Itera sobre todos los palos (OROS, COPAS, BASTOS, ESPADAS)
+- Para cada palo, itera sobre todos los valores (UNO-SIETE, SOTA, CABALLO, REY)
+- Crea una carta para cada combinación y la agrega
 
-   - Comprueba si el mazo tiene cartas disponibles
-   - Si está vacío, retorna null
-   - Si hay cartas, extrae y retorna la primera (índice 0)
+---
 
-5. **addCardsAndShuffle(List<Card> newCards)**
+### 3️⃣ `shuffle()`
 
-   Responsabilidad: Agregar un conjunto de cartas y barajar.
+**Tipo**: Método público
 
-   - Agrega todas las nuevas cartas al mazo
-   - Baraja el mazo después de agregar
+**Descripción**: Baraja aleatoriamente las cartas del mazo.
 
-6. **getCards()**
+**Lógica**:
+- Usa `Collections.shuffle()` para mezclar el orden
 
-   Responsabilidad: Obtener la lista completa de cartas del mazo.
+---
 
-   - Retorna la referencia a la lista de cartas
-   - Permite acceso directo para manipulación del mazo
+### 4️⃣ `drawCard()`
+
+**Tipo**: Método público
+
+**Retorna**: `Card` - La primera carta del mazo, o null si está vacío
+
+**Descripción**: Extrae la primera carta del mazo.
+
+**Lógica**:
+- Comprueba si el mazo tiene cartas
+- Si está vacío: retorna null
+- Si hay cartas: extrae y retorna la primera (índice 0)
+
+---
+
+### 5️⃣ `addCardsAndShuffle(List<Card> newCards)`
+
+**Tipo**: Método público
+
+**Descripción**: Agrega un conjunto de cartas y baraja el mazo.
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `newCards` | List<Card> | Cartas a agregar |
+
+**Lógica**:
+- Agrega todas las cartas nuevas al mazo
+- Baraja el mazo después de agregar
+
+---
+
+### 6️⃣ `getCards()`
+
+**Tipo**: Método público
+
+**Retorna**: `List<Card>` - La lista de cartas del mazo
+
+**Descripción**: Acceso directo a la lista de cartas para manipulación.

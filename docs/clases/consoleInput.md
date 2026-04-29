@@ -1,53 +1,103 @@
-## ConsoleInput
+# 📝 ConsoleInput
 
-Clase encargada de gestionar la entrada de datos del usuario a través de la consola. Proporciona métodos robustos para leer enteros y valores booleanos con validación de errores.
+> **Responsabilidad**: Gestionar la entrada de datos del usuario a través de la consola con validación robusta de errores.
 
-### Funciones
+**Paquete**: `chinchon.app`
 
-1. **ConsoleInput(Scanner keyboard)**
+**Descripción**: Proporciona métodos seguros para leer enteros y valores booleanos desde la consola, con manejo completo de excepciones y validación de límites.
 
-   Constructor que inicializa la clase con un Scanner.
+---
 
-   - Recibe un objeto Scanner como parámetro
-   - Lo almacena como variable de instancia
+## Métodos
 
-2. **readInt()**
+### 1️⃣ `ConsoleInput(Scanner keyboard)`
 
-   Responsabilidad: Leer un entero válido del usuario con manejo de errores.
+**Tipo**: Constructor
 
-   - Bucle de validación que continúa hasta recibir un entero válido
-   - Si hay excepción, muestra mensaje de error y limpia el buffer
-   - Retorna el número entero leído
+**Descripción**: Inicializa la clase con un Scanner para entrada del usuario.
 
-3. **readIntLessThan(int upperBound)**
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `keyboard` | Scanner | Scanner para leer entrada |
 
-   Responsabilidad: Leer un entero que sea menor que un valor específico.
+---
 
-   - Pide al usuario que introduzca un entero menor que upperBound
-   - Valida que el valor sea menor que el límite
-   - Si no es válido, muestra error y pide nuevamente
-   - Retorna el entero válido
+### 2️⃣ `readInt()`
 
-4. **readIntLessOrEqualThan(int upperBound)**
+**Tipo**: Método público
 
-   Responsabilidad: Leer un entero que sea menor o igual que un valor específico.
+**Retorna**: `int` - Entero válido leído del usuario
 
-   - Similar a readIntLessThan pero permite igualdad
-   - Pide al usuario que introduzca un entero menor o igual que upperBound
-   - Valida que el valor sea menor o igual al límite
-   - Retorna el entero válido
+**Descripción**: Lee un entero válido del usuario con validación de errores.
 
-5. **readBooleanUsingChar(char charTrue, char charFalse, String prompt)**
+**Lógica**:
+- Bucle de validación hasta recibir un entero válido
+- Si hay excepción, muestra mensaje de error y limpia buffer
+- Retorna el número entero leído
 
-   Responsabilidad: Leer un valor booleano basado en caracteres específicos.
+---
 
-   - Muestra el mensaje del prompt
-   - Lee enteros hasta que el usuario introduzca el carácter correcto
-   - Retorna true si introduce charTrue, false si introduce charFalse
+### 3️⃣ `readIntLessThan(int upperBound)`
 
-6. **cleanInput()**
+**Tipo**: Método público
 
-   Responsabilidad: Limpiar el buffer de entrada del Scanner.
+**Retorna**: `int` - Entero menor que `upperBound`
 
-   - Consume la línea restante del Scanner
-   - Se usa después de cada lectura para evitar problemas de sincronización
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `upperBound` | int | Límite superior (exclusivo) |
+
+**Descripción**: Lee un entero que sea estrictamente menor que un valor específico.
+
+**Lógica**:
+- Pide entrada al usuario
+- Valida que sea menor que el límite
+- Muestra error si no es válido
+- Retorna el entero válido
+
+---
+
+### 4️⃣ `readIntLessOrEqualThan(int upperBound)`
+
+**Tipo**: Método público
+
+**Retorna**: `int` - Entero menor o igual que `upperBound`
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `upperBound` | int | Límite superior (inclusivo) |
+
+**Descripción**: Lee un entero que sea menor o igual a un valor específico.
+
+---
+
+### 5️⃣ `readBooleanUsingChar(char charTrue, char charFalse, String prompt)`
+
+**Tipo**: Método público
+
+**Retorna**: `boolean` - true si introduce `charTrue`, false si introduce `charFalse`
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `charTrue` | char | Carácter para verdadero |
+| `charFalse` | char | Carácter para falso |
+| `prompt` | String | Mensaje a mostrar al usuario |
+
+**Descripción**: Lee un valor booleano basado en caracteres específicos del usuario.
+
+**Lógica**:
+- Muestra el prompt al usuario
+- Lee enteros hasta que introduzca el carácter correcto
+- Retorna true/false según corresponda
+
+---
+
+### 6️⃣ `cleanInput()` (privado)
+
+**Tipo**: Método privado
+
+**Descripción**: Limpia el buffer de entrada del Scanner.
+
+**Lógica**:
+- Consume la línea restante con `nextLine()`
+- Se utiliza después de cada lectura para evitar desincronización
