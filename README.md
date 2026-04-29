@@ -62,7 +62,7 @@ Chinchon
 # Explicación de clases
 Click en el nombre de cada clase para ver su explicación detallada.
 
-## [GameManager](docs/clases/)
+## [GameManager](docs/clases/gameManager.md)
 La encargada de gestionar el estado del juego.
 
 
