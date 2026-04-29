@@ -6,15 +6,31 @@ import java.util.List;
 import chinchon.app.ConsoleInput;
 
 /**
- * Jugador humano, el usuario decide que hacer o no
+ * Jugador controlado por una persona a través de la consola.
  */
 public class Human extends Player {
 
+	/**
+	 * Crea un jugador humano con el estado inicial de la partida.
+	 *
+	 * @param name         nombre visible del jugador
+	 * @param hand         mano inicial
+	 * @param score        puntuación acumulada
+	 * @param handAnalyzer analizador de combinaciones de la mano
+	 */
 	public Human(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {
 		super(name, hand, score, handAnalyzer);
 
 	}
 
+	/**
+	 * Ejecuta el turno del jugador humano mostrando la mano, pidiendo la carta a
+	 * robar y la carta a descartar.
+	 *
+	 * @param input       entrada de consola para interactuar con el jugador
+	 * @param deck        baraja principal
+	 * @param discardPile pila de descartes actual
+	 */
 	@Override
 	public void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		showHand();
@@ -30,6 +46,10 @@ public class Human extends Player {
 
 	}
 
+	/**
+	 * Ordena y muestra la mano actual, resaltando las cartas que forman parte de
+	 * una combinación.
+	 */
 	public void showHand() {
 		List<Card> combined;
 		getHand().sort(Comparator.comparingInt((Card c) -> c.getValue().getNumber()).thenComparing(c -> c.getSuit()));
@@ -44,6 +64,13 @@ public class Human extends Player {
 
 	}
 
+	/**
+	 * Pide al usuario si roba de la baraja o de la pila de descartes.
+	 *
+	 * @param input       entrada de consola
+	 * @param deck        baraja principal
+	 * @param discardPile pila de descartes
+	 */
 	public void askForDraw(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		boolean option;
 		option = input.readBooleanUsingChar('d', 'b', "Escribe d para descartes o b para coger de la baraja :");
@@ -57,6 +84,12 @@ public class Human extends Player {
 		}
 	}
 
+	/**
+	 * Permite seleccionar una carta de la mano para descartarla.
+	 *
+	 * @param input       entrada de consola
+	 * @param discardPile pila de descartes donde se añade la carta elegida
+	 */
 	public void discard(ConsoleInput input, List<Card> discardPile) {
 		int card;
 		System.out.println("Selecciona del 1 al 8 la carta que descartar");
@@ -65,6 +98,12 @@ public class Human extends Player {
 		getHand().remove(card - 1);
 	}
 
+	/**
+	 * Calcula la puntuación provisional de la mano actual.
+	 *
+	 * @param handAnalyzer analizador de manos a utilizar
+	 * @return puntos de las cartas todavía no combinadas
+	 */
 	public int currentScore(HandAnalyzer handAnalyzer) {
 		return handAnalyzer.calculateUncombinedCards(getHand());
 	}

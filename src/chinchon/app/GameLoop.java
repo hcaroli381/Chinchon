@@ -11,12 +11,23 @@ import chinchon.dominio.HandAnalyzer;
 import chinchon.dominio.Human;
 import chinchon.dominio.Player;
 
+/**
+ * Gestiona el desarrollo de una ronda, turno a turno.
+ */
 public class GameLoop {
 	private GameManager gameState;
 	private ConsoleInput console;
 	private HandAnalyzer handAnalyzer;
 	private DeckManager deckManager;
 
+	/**
+	 * Construye el bucle de juego con los servicios que necesita para operar.
+	 *
+	 * @param gameState    estado compartido de la partida
+	 * @param console      entrada de consola
+	 * @param handAnalyzer analizador de manos
+	 * @param deckManager  gestor de baraja
+	 */
 	public GameLoop(GameManager gameState, ConsoleInput console, HandAnalyzer handAnalyzer, DeckManager deckManager) {
 		this.gameState = gameState;
 		this.console = console;
@@ -25,7 +36,8 @@ public class GameLoop {
 	}
 
 	/**
-	 * Se encarga del flujo de los turnos, dentro de una misma ronda.
+	 * Ejecuta el flujo de turnos dentro de una misma ronda hasta que alguien la
+	 * cierre.
 	 */
 	protected void startGameLoop() {
 		int turn = 0;
@@ -64,6 +76,12 @@ public class GameLoop {
 		}
 	}
 
+	/**
+	 * Finaliza la ronda, actualiza las puntuaciones y elimina a los jugadores que
+	 * superan el límite.
+	 *
+	 * @param ender jugador que ha cerrado la ronda
+	 */
 	private void endRound(Player ender) {
 		if (handAnalyzer.findChinchon(ender.getHand())) {
 			System.out.printf("CHINCHON, %s ha ganado!!", ender.getName());
@@ -98,6 +116,12 @@ public class GameLoop {
 		System.out.println();
 	}
 
+	/**
+	 * Muestra un aviso cuando un jugador cierra la ronda y pausa brevemente el
+	 * flujo para que el mensaje sea visible.
+	 *
+	 * @param player jugador que ha cerrado
+	 */
 	private void announceClose(Player player) {
 		System.out.printf("%s ha cerrado!!\n", player);
 

@@ -11,6 +11,9 @@ import chinchon.dominio.Player;
 import chinchon.dominio.PlayerFactory;
 import chinchon.dominio.PlayerType;
 
+/**
+ * Mantiene y prepara el estado global de la partida.
+ */
 public class GameManager {
 	private List<Player> players;
 	private Deck deck;
@@ -19,6 +22,13 @@ public class GameManager {
 	private DeckManager deckManager;
 	private HandAnalyzer handAnalyzer;
 
+	/**
+	 * Crea el gestor de la partida con sus dependencias principales.
+	 *
+	 * @param console      entrada de consola
+	 * @param deckManager  gestor de baraja
+	 * @param handAnalyzer analizador de manos
+	 */
 	public GameManager(ConsoleInput console, DeckManager deckManager, HandAnalyzer handAnalyzer) {
 		this.players = new ArrayList<>();
 		this.discardPile = new ArrayList<>();
@@ -29,7 +39,8 @@ public class GameManager {
 	}
 
 	/**
-	 * Inicio de la partida
+	 * Prepara una nueva partida: pide datos, crea la baraja, reparte cartas y
+	 * sitúa la primera carta en la pila de descartes.
 	 */
 	protected void setupGame() {
 		int numPlayers = requestNumberOfPlayers();
@@ -45,6 +56,11 @@ public class GameManager {
 		discardPile.add(deck.drawCard());
 	}
 
+	/**
+	 * Solicita el número de jugadores que participarán en la partida.
+	 *
+	 * @return número de jugadores válido
+	 */
 	private int requestNumberOfPlayers() {
 
 		int players;
@@ -53,6 +69,11 @@ public class GameManager {
 		return players;
 	}
 
+	/**
+	 * Pregunta si el jugador será humano o IA.
+	 *
+	 * @return {@code true} para humano, {@code false} para IA
+	 */
 	private boolean requestPlayerNature() {
 		boolean player;
 		player = console.readBooleanUsingChar('h', 'i', "Introduce 'h' para humano o 'i' para IA");
@@ -60,6 +81,11 @@ public class GameManager {
 
 	}
 
+	/**
+	 * Crea la lista de jugadores con sus manos iniciales.
+	 *
+	 * @param numberOfPlayers número total de jugadores a crear
+	 */
 	private void createPlayers(int numberOfPlayers) {
 		List<Card> hand = new ArrayList<Card>();
 		boolean player;
@@ -87,6 +113,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Reparte la mano inicial de un jugador.
+	 *
+	 * @return lista con las cartas iniciales
+	 */
 	private List<Card> startHand() {
 		List<Card> hand = new ArrayList<Card>();
 		for (int i = 0; i < 7; i++) {
@@ -95,6 +126,11 @@ public class GameManager {
 		return hand;
 	}
 
+	/**
+	 * Solicita un nombre de jugador que no esté repetido.
+	 *
+	 * @return nombre válido para el jugador
+	 */
 	private String requestPlayerName() {
 		String auxName;
 		String name;
@@ -112,6 +148,9 @@ public class GameManager {
 		return name;
 	}
 
+	/**
+	 * Prepara la baraja y reparte una nueva mano para la siguiente ronda.
+	 */
 	protected void prepareNextRound() {
 		int decks;
 		decks = (players.size() >= 3) ? 2 : 1;
@@ -126,22 +165,36 @@ public class GameManager {
 	}
 
 	/**
-	 * Elimina los jugadores cuando llegan al límite prestablecido por el
-	 * programador
+	 * Elimina a los jugadores que han alcanzado o superado el límite de puntos.
 	 */
 	protected void eliminatePlayers() {
 		players.removeIf(p -> p.getScore() >= GameConstants.ELIMINATION_SCORE);
 
 	}
 
+	/**
+	 * Devuelve la lista de jugadores activos.
+	 *
+	 * @return jugadores de la partida
+	 */
 	public List<Player> getPlayers() {
 		return players;
 	}
 
+	/**
+	 * Devuelve la baraja principal actual.
+	 *
+	 * @return baraja de la ronda
+	 */
 	public Deck getDeck() {
 		return deck;
 	}
 
+	/**
+	 * Devuelve la pila de descartes actual.
+	 *
+	 * @return descartes de la ronda
+	 */
 	public List<Card> getDiscardPile() {
 		return discardPile;
 	}

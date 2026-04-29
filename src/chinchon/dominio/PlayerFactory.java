@@ -3,9 +3,19 @@ package chinchon.dominio;
 import java.util.List;
 
 /**
- * Clase encargada única y exclusivamente a la creación de jugadores
+ * Fábrica centralizada para crear instancias de jugadores.
  */
 public class PlayerFactory {
+	/**
+	 * Crea un jugador concreto según el tipo indicado.
+	 *
+	 * @param type         tipo de jugador a construir
+	 * @param name         nombre del jugador
+	 * @param hand         mano inicial asignada
+	 * @param handAnalyzer analizador de manos compartido
+	 * @return instancia de {@link Player}
+	 * @throws IllegalArgumentException si el tipo no es reconocido
+	 */
 	public static Player createPlayer(PlayerType type, String name, List<Card> hand, HandAnalyzer handAnalyzer)
 			throws IllegalArgumentException {
 		switch (type) {

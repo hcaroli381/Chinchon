@@ -9,16 +9,15 @@ import chinchon.dominio.Suit;
 import chinchon.dominio.Value;
 
 /**
- * Clase utilizada para administrar la baraja durante la partida
+ * Gestiona las operaciones de alto nivel sobre la baraja durante la partida.
  */
 public class DeckManager {
 
 	/**
-	 * Ejecuta addFullSetToDeck tantas veces como pida el numero de mazos pasado por
-	 * parametro.
+	 * Añade una o varias barajas completas al mazo indicado.
 	 * 
 	 * @param deck          mazo actual
-	 * @param numberOfDecks numero de mazos (1 o 2)
+	 * @param numberOfDecks número de barajas a incorporar
 	 */
 	public void addFullSetsToDeck(Deck deck, int numberOfDecks) {
 		for (int i = 0; i < numberOfDecks; i++) {
@@ -26,6 +25,11 @@ public class DeckManager {
 		}
 	}
 
+	/**
+	 * Añade al mazo todas las combinaciones posibles de palo y valor.
+	 *
+	 * @param deck mazo destino
+	 */
 	private void addFullSetToDeck(Deck deck) {
 		for (Suit suit : Suit.values()) {
 			for (Value value : Value.values()) {
@@ -35,11 +39,11 @@ public class DeckManager {
 	}
 
 	/**
-	 * Prepara el mazo cuando se empieza una nueva ronda
+	 * Deja el mazo preparado para comenzar una ronda nueva.
 	 * 
 	 * @param deck          mazo principal
 	 * @param discardPile   pila de descartes de la ronda anterior
-	 * @param numberOfDecks numero de barajas con el que se jugará
+	 * @param numberOfDecks número de barajas con el que se jugará
 	 */
 	public void prepareDeckForNewRound(Deck deck, List<Card> discardPile, int numberOfDecks) {
 		deck.getCards().clear();
@@ -50,8 +54,7 @@ public class DeckManager {
 	}
 
 	/**
-	 * Función utilizada para que el juego no se rompa cuando la pila de descartes
-	 * se acabe en la ronda
+	 * Reincorpora los descartes al mazo cuando la baraja principal se agota.
 	 * 
 	 * @param deck        baraja principal
 	 * @param discardPile pila de descartes actual

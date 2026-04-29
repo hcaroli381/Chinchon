@@ -4,8 +4,16 @@ import java.util.Scanner;
 
 import chinchon.dominio.HandAnalyzer;
 
+/**
+ * Punto de entrada de la aplicación de Chinchón.
+ */
 public class Main {
 
+	/**
+	 * Inicializa las dependencias principales y arranca la partida.
+	 *
+	 * @param args argumentos de línea de comandos, no utilizados
+	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		ConsoleInput console = new ConsoleInput(sc);

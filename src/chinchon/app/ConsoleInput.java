@@ -2,6 +2,9 @@ package chinchon.app;
 
 import java.util.Scanner;
 
+/**
+ * Encapsula la lectura segura de datos por consola y aplica validaciones básicas.
+ */
 public class ConsoleInput {
 	private Scanner keyboard;
 
@@ -78,11 +81,11 @@ public class ConsoleInput {
 	}
 
 	/**
-	 * Lee un entero en un rango limite
+	 * Lee un entero comprendido dentro de un rango cerrado.
 	 * 
 	 * @param lowerBound valor minimo
 	 * @param upperBound valor máximo
-	 * @return entero leido
+	 * @return entero leído por consola y validado
 	 */
 	public int readIntInRange(int lowerBound, int upperBound) {
 		int valor;
@@ -204,10 +207,10 @@ public class ConsoleInput {
 	}
 
 	/**
-	 * lee una cadena con una longitud maxima
+	 * Lee una cadena con una longitud máxima permitida.
 	 * 
 	 * @param maxLength longitud límite
-	 * @return cadena leida por la consola
+	 * @return cadena leída por la consola
 	 */
 	public String readString(int maxLength) {
 		String s;
@@ -223,6 +226,14 @@ public class ConsoleInput {
 	}
 
 	public boolean readBooleanUsingChar(char affirmativeValue, char negativeValue) {
+	/**
+	 * Lee una respuesta binaria a partir de dos caracteres permitidos.
+	 *
+	 * @param affirmativeValue carácter que representa {@code true}
+	 * @param negativeValue    carácter que representa {@code false}
+	 * @param mensaje          mensaje que se muestra al usuario antes de leer
+	 * @return {@code true} si se introduce el carácter afirmativo
+	 */
 		char c;
 		char aff = Character.toLowerCase(affirmativeValue);
 		char neg = Character.toLowerCase(negativeValue);
@@ -264,6 +275,13 @@ public class ConsoleInput {
 		return c == aff;
 	}
 
+	/**
+	 * Lee una opción de menú dentro de un intervalo válido.
+	 *
+	 * @param minOption opción mínima aceptada
+	 * @param maxOption opción máxima aceptada
+	 * @return opción elegida por el usuario
+	 */
 	public int readMenuOption(int minOption, int maxOption) {
 		int opcion;
 		System.out.printf("Seleccione una opción [%d - %d]: ", minOption, maxOption);
@@ -276,6 +294,12 @@ public class ConsoleInput {
 		return opcion;
 	}
 
+	/**
+	 * Lee una respuesta de sí o no usando los caracteres 's' y 'n'.
+	 *
+	 * @param message mensaje que se mostrará al usuario
+	 * @return {@code true} si la respuesta es afirmativa
+	 */
 	public boolean readYesNo(String message) {
 		System.out.println(message + " (s/n): ");
 		char c;

@@ -7,16 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Analiza la mano del jugador, para determinar su puntuacion, si encuentra
- * escaleras o combinaciones, si puede cerrar o determinar el mejor descarte de
- * la IA.
+ * Analiza una mano de cartas para detectar combinaciones, calcular puntos y
+ * ayudar a la IA a tomar decisiones.
  */
 public class HandAnalyzer {
 	/**
-	 * Calcula la puntuación de la ronda para sumarla al fianl.
+	 * Calcula los puntos de las cartas que no pertenecen a ninguna combinación.
 	 * 
 	 * @param hand mano actual del jugador
-	 * @return puntuacion a sumar
+	 * @return puntuación total de las cartas no combinadas
 	 */
 	public int calculateUncombinedCards(List<Card> hand) {
 		int uncombined = 0;
@@ -101,10 +100,10 @@ public class HandAnalyzer {
 	}
 
 	/**
-	 * Encuentra si hay chinchon
+	 * Comprueba si la mano forma un chinchón.
 	 * 
-	 * @param auxiliarHand mano auxiliar para la comprobacion
-	 * @return true si hay chinchon (fin de partida) o false si no lo hay
+	 * @param auxiliarHand mano auxiliar para la comprobación
+	 * @return {@code true} si existe un chinchón; {@code false} en caso contrario
 	 */
 	public boolean findChinchon(List<Card> auxiliarHand) {
 		int ordinal, nextOrdinal;
@@ -130,10 +129,10 @@ public class HandAnalyzer {
 	}
 
 	/**
-	 * Da la posibilidad o se la quita al jugador de cerrar
+	 * Determina si la mano permite cerrar la ronda.
 	 * 
 	 * @param hand mano actual del jugador
-	 * @return true si puede cerrar false si no puede hacerlo
+	 * @return {@code true} si el jugador puede cerrar; {@code false} en caso contrario
 	 */
 	public boolean canClose(List<Card> hand) {
 
@@ -154,10 +153,10 @@ public class HandAnalyzer {
 	}
 
 	/**
-	 * Funcion utilizada para la IA, para que esta sepa cual es el mejor descarte
+	 * Calcula qué carta deja la menor puntuación posible al descartarla.
 	 * 
 	 * @param hand mano actual del jugador
-	 * @return devuelve la carta marcada como "mejor" para descartar
+	 * @return carta que conviene descartar
 	 */
 	public Card getBestDiscard(List<Card> hand) {
 		List<Card> auxHand;
@@ -179,11 +178,10 @@ public class HandAnalyzer {
 	}
 
 	/**
-	 * Determina que cartas deben ser marcadas como combinadas (atributo de la clase
-	 * Card)
+	 * Devuelve las cartas que forman parte de alguna combinación detectada.
 	 * 
 	 * @param hand mano actual del jugador
-	 * @return mano de combinadas
+	 * @return lista de cartas combinadas
 	 */
 	public List<Card> getCombinedCards(List<Card> hand) {
 		List<Card> combined = new ArrayList<Card>();

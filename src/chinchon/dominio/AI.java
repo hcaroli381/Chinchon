@@ -6,15 +6,32 @@ import java.util.List;
 import chinchon.app.ConsoleInput;
 
 /**
- * Inteligencia artificial que juega por sí misma, hija de la clase Player
+ * Jugador automático que toma decisiones básicas sin intervención humana.
  */
 public class AI extends Player {
 
+	/**
+	 * Crea una IA con el estado inicial de la partida.
+	 *
+	 * @param name         nombre visible del jugador
+	 * @param hand         mano inicial
+	 * @param score        puntuación acumulada
+	 * @param handAnalyzer analizador de combinaciones de la mano
+	 */
 	public AI(String name, List<Card> hand, int score, HandAnalyzer handAnalyzer) {
 		super(name, hand, score, handAnalyzer);
 
 	}
 
+	/**
+	 * Ejecuta el turno completo de la IA: roba, elige el mejor descarte y lo
+	 * coloca en la pila de descartes.
+	 *
+	 * @param input       no se utiliza en esta implementación
+	 * @param deck        baraja principal
+	 * @param discardPile pila de descartes
+	 */
+	@Override
 	public void playTurn(ConsoleInput input, Deck deck, List<Card> discardPile) {
 		Card discard;
 		draw(deck, discardPile);
@@ -30,6 +47,13 @@ public class AI extends Player {
 
 	}
 
+	/**
+	 * Decide si la IA roba de la pila de descartes o de la baraja comparando la
+	 * puntuación actual con la que tendría tras tomar la carta visible.
+	 *
+	 * @param deck        baraja principal
+	 * @param discardPile pila de descartes
+	 */
 	private void draw(Deck deck, List<Card> discardPile) {
 		Card auxCard = discardPile.get(0);
 		List<Card> auxHand = new ArrayList<>(getHand());
