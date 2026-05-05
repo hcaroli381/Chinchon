@@ -25,8 +25,7 @@ public class Main {
 			engine = GameEngine.getInstance(console, handAnalyzer, deckManager);
 		} catch (Exception e) {
 			System.err.println(e);
-			;
-		}
+        }
 
 		engine.startGame();
 
