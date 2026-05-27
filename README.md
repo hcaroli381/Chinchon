@@ -213,6 +213,16 @@ A continuación se describe, paso a paso, el flujo de interacción principal dur
 
 El flujo termina cuando la partida ha finalizado.
 
+
+## Captura 1 test BlackBox 1 test Whitebox
+
+<img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
+
+<img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/a1ac96df-8333-40ab-8312-49623a1e0387" />
+
+
+
+
 ## Aclaraciones / Notas
 
 - **Número de barajas**: Si hay 3 o más jugadores se usan 2 barajas; cuando queden 2 jugadores se jugará con 1 baraja.
