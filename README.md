@@ -294,6 +294,22 @@ Las capturas de pantalla adjuntas demuestran:
    - **Resultados**: Validación de caminos lógicos en `checkAndRefillDeck`.
    <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
+3. **Test de caja negra de DeckManager**:
+   <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/aced6243-7e4d-44b7-9f14-6b7fda1d5842" />
+
+4. **Test Deck**
+   <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/295f1160-5060-4a2e-8f33-ef55de82d5e6" />
+
+5. **Test PlayerFactory**
+   <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/de5806fc-a78c-4af0-b049-3ee48b937031" />
+
+6. **Test Player**
+   <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/825bbd3d-7f19-48bc-87b1-8edf0c2c7281" />
+
+
+ 
+ 
+
 
 
 
