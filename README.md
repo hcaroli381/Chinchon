@@ -223,6 +223,22 @@ Sigo una estrategia híbrida de pruebas, combinando blackbox (no conocemos el c�
 Esto nos garantiza cobertura de funcionalidad y de código, aunque en este caso solo hemos hecho una prueba de caja blanca.
 Para hacerlas he usado JUnit 5 con aserciones que me ayudaron a validar comportamientos y estados.
 
+---
+
+### **📂 Organización de los Tests**
+Los tests están ubicados en:
+- **`test/dominio/`**: Tests para las clases del **dominio del juego** (cartas, manos, jugadores).
+  - **Importante** separación de las pruebas en una carpeta distinta, para separarlos de las clases que se ocupan de la lógica en src.
+
+**Clases probadas**:
+   Clase | Tipo de Prueba | Objetivo |
+ |-------|----------------|----------|
+ | [`Deck`](src/chinchon/dominio/Deck.java) | Caja negra | Validar creación, barajado y robo de cartas. |
+ | [`DeckManager`](src/chinchon/app/DeckManager.java) | Caja negra y blanca | Validar gestión del mazo y reabastecimiento. |
+ | [`HandAnalyzer`](src/chinchon/dominio/HandAnalyzer.java) | Caja negra | Validar detección de combinaciones (escaleras, grupos) y cálculo de puntos. |
+ | [`PlayerFactory`](src/chinchon/dominio/PlayerFactory.java) | Caja negra | Validar creación correcta de jugadores (Human/AI). |
+ | [`Player`](src/chinchon/dominio/Player.java) | Caja negra | Validar gestión de nombre y puntuación. |
+
 <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
 <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/a1ac96df-8333-40ab-8312-49623a1e0387" />
