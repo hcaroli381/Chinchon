@@ -239,6 +239,50 @@ Los tests están ubicados en:
  | [`PlayerFactory`](src/chinchon/dominio/PlayerFactory.java) | Caja negra | Validar creación correcta de jugadores (Human/AI). |
  | [`Player`](src/chinchon/dominio/Player.java) | Caja negra | Validar gestión de nombre y puntuación. |
 
+---
+### **⚙️ Diseño y justificación de Pruebas de Caja Negra**
+**Objetivo**: Validar que las clases cumplen con el comportamiento que esperamos.
+
+**Ejemplos**:
+- **`DeckTest`**:
+  - `createDeck40Cards()`: Verifica que un mazo estándar tenga **40 cartas** (baraja española).
+  - `testDrawCard_ReduceDeck()`: Asegura que al robar una carta, el mazo se reduce en 1.
+  - `testShuffle()`: Confirma que el barajado cambia el orden de las cartas.
+  **→ [Ver código](test/dominio/DeckTest.java)**
+
+- **`HandAnalyzerTest`**:
+  - `testUncombinedCardsChinchon()`: Valida que una mano con **Chinchón** (7 cartas consecutivas del mismo palo) tenga **0 cartas sin combinar**.
+  - `testCanClose_true()`: Verifica que un jugador **puede cerrar** si su mano cumple las reglas.
+  **→ [Ver código](test/dominio/HandAnalyzerTest.java)**
+
+- **`PlayerFactoryTest`**:
+  - `testCreateHuman()` y `testCreateAi()`: Aseguran que la fábrica crea instancias correctas de `Human` o `AI` según el tipo solicitado.
+  **→ [Ver código](test/dominio/PlayerFactoryTest.java)**
+
+---
+
+### **🔍 Diseño y Justificación de Pruebas de Caja Blanca**
+**Objetivo**: Validar condiciones de borde en métodos clave para el funcionamiento.
+
+**Ejemplo en [`DeckManagerWhiteBoxTest`](test/dominio/DeckManagerWhiteBoxTest.java)**:
+- **`testCheckAndRefillDeck_NoRefillWhenDeckNotEmpty()`**:
+  - **Caso**: Mazo con cartas + descartes.
+  - **Validación**: El mazo **no debe reabastecerse** si ya tiene cartas.
+  - **Razón**: Evitar comportamientos no deseados al reabastecer innecesariamente.
+
+- **`testCheckAndRefillDeck_OnlyOneDiscard_LeftAsIs()`**:
+  - **Caso**: Mazo vacío + **1 sola carta en descartes**.
+  - **Validación**: El mazo **permanece vacío** y el descarte **no se modifica**.
+  - **Razón**: Según las reglas del juego, **no se puede reabastecer el mazo con solo 1 carta en descartes**.
+
+- **`testCheckAndRefillDeck_MultipleDiscards_ReplenishLeavesOne()`**:
+  - **Caso**: Mazo vacío + **múltiples cartas en descartes**.
+  - **Validación**: El mazo se rellena con **todas las cartas de descartes menos 1** (que permanece como carta superior del descarte).
+  - **Razón**: Cumplir la regla del juego: *"Si la baraja se agota, se barajan los descartes (manteniendo la carta superior) y se reutilizan como nuevo mazo"*.
+
+---
+
+
 <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
 <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/a1ac96df-8333-40ab-8312-49623a1e0387" />
