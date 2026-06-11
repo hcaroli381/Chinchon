@@ -282,10 +282,22 @@ Los tests están ubicados en:
 
 ---
 
+### **📸 Evidencias de Ejecución**
+Las capturas de pantalla adjuntas demuestran:
+1. **Test HandAnalyzer**:
+   - Ejecución exitosa de pruebas para `Deck` y `HandAnalyzer`.
+   - **Resultados**: Todos los tests pasan, validando el análisis del conjunto de cartas del jugador.
+    <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/a1ac96df-8333-40ab-8312-49623a1e0387" />
 
-<img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
+2. **Test de caja blanca de DeckManager**:
+   - Ejecución de `DeckManagerWhiteBoxTest`.
+   - **Resultados**: Validación de caminos lógicos en `checkAndRefillDeck`.
+   <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
-<img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/a1ac96df-8333-40ab-8312-49623a1e0387" />
+
+
+
+
 
 
 
