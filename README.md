@@ -295,15 +295,23 @@ Las capturas de pantalla adjuntas demuestran:
    <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
 3. **Test de caja negra de DeckManager**:
+   - Validación de la funcionalidad pública de `DeckManager`.
+   - **Resultados**: Se verifica la gestión del mazo y su preparación para nuevas rondas.
    <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/aced6243-7e4d-44b7-9f14-6b7fda1d5842" />
 
 4. **Test Deck**
+   - Validación de la creación, barajado y robo de cartas en la clase `Deck`.
+   - **Resultados**: Todos los tests pasan, asegurando que el mazo se comporta como se espera.
    <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/295f1160-5060-4a2e-8f33-ef55de82d5e6" />
 
 5. **Test PlayerFactory**
+   - Validación de la creación correcta de jugadores (`Human` y `AI`).
+   - **Resultados**: Se confirma que la fábrica genera instancias válidas según el tipo solicitado.
    <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/de5806fc-a78c-4af0-b049-3ee48b937031" />
 
 6. **Test Player**
+   - Validación de la gestión de nombre y puntuación en la clase `Player`.
+   - **Resultados**: Todos los tests pasan, asegurando que los jugadores se comportan según lo esperado.
    <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/825bbd3d-7f19-48bc-87b1-8edf0c2c7281" />
 
 ---
