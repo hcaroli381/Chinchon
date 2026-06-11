@@ -214,7 +214,14 @@ A continuación se describe, paso a paso, el flujo de interacción principal dur
 El flujo termina cuando la partida ha finalizado.
 
 
-## Captura 1 test BlackBox 1 test Whitebox
+## 🧪 Justificación de los Tests
+Los tests son una forma de verificar el funcionamiento de nuestros métodos de la forma más aislada y pequeña posible.
+
+
+### **📌 Estrategia de Pruebas**
+Sigo una estrategia híbrida de pruebas, combinando blackbox (no conocemos el código interno) y whitebox (conociendo el código interno).
+Esto nos garantiza cobertura de funcionalidad y de código, aunque en este caso solo hemos hecho una prueba de caja blanca.
+Para hacerlas he usado JUnit 5 con aserciones que me ayudaron a validar comportamientos y estados.
 
 <img width="1773" height="525" alt="image" src="https://github.com/user-attachments/assets/508ce141-8462-43e7-810f-b6ceb3f4b576" />
 
