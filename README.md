@@ -306,15 +306,17 @@ Las capturas de pantalla adjuntas demuestran:
 6. **Test Player**
    <img width="2468" height="635" alt="image" src="https://github.com/user-attachments/assets/825bbd3d-7f19-48bc-87b1-8edf0c2c7281" />
 
-
- 
- 
-
-
-
-
-
-
+---
+### **🎯 Casos de Prueba Elegidos**
+Se priorizaron los siguientes escenarios para asegurar la **robustez del juego**:
+1. **Creación y gestión del mazo** (`Deck`, `DeckManager`):
+   - Barajado, robo de cartas, reabastecimiento.
+2. **Análisis de manos** (`HandAnalyzer`):
+   - Detección de Chinchón, cálculo de puntos, validación de cierre.
+3. **Fábrica de jugadores** (`PlayerFactory`):
+   - Creación correcta de `Human` y `AI`.
+4. **Gestión de jugadores** (`Player`):
+   - Asignación de nombre y puntuación.
 
 
 
