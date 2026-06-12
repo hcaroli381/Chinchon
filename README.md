@@ -45,59 +45,63 @@
 
 ```
 Chinchon
-├─ docs/
-│  ├─ clases/
-│  │  ├─ gameEngine.md
-│  │  ├─ gameLoop.md
-│  │  ├─ gameManager.md
-│  │  ├─ scoreCalculator.md
-│  │  ├─ deckManager.md
-│  │  ├─ consoleInput.md
-│  │  ├─ main.md
-│  │  ├─ player.md
-│  │  ├─ human.md
-│  │  ├─ ai.md
-│  │  ├─ handAnalyzer.md
-│  │  ├─ card.md
-│  │  ├─ deck.md
-│  │  ├─ gameConstants.md
-│  │  ├─ suit.md
-│  │  ├─ value.md
-│  │  ├─ colors.md
-│  │  ├─ playerFactory.md
-│  │  └─ playerType.md
-│  └─ chinchonUML.png
-├─ README.md
-├─ src/
-│  └─ chinchon/
-│     ├─ app/
-│     │  ├─ ConsoleInput.java
-│     │  ├─ DeckManager.java
-│     │  ├─ GameEngine.java
-│     │  ├─ GameLoop.java
-│     │  ├─ GameManager.java
-│     │  ├─ Main.java
-│     │  └─ ScoreCalculator.java
-│     └─ dominio/
-│        ├─ AI.java
-│        ├─ Card.java
-│        ├─ Colors.java
-│        ├─ Deck.java
-│        ├─ GameConstants.java
-│        ├─ HandAnalyzer.java
-│        ├─ Human.java
-│        ├─ Player.java
-│        ├─ PlayerFactory.java
-│        ├─ PlayerType.java
-│        ├─ Suit.java
-│        └─ Value.java
-└─ test/
-   └─ dominio/
-      ├─ DeckManagerTest.java
-      ├─ DeckTest.java
-      ├─ HandAnalyzerTest.java
-      ├─ PlayerFactoryTest.java
-      └─ PlayerTest.java
+├── README.md
+├── docs/
+│   ├── clases/
+│   │   ├── ai.md
+│   │   ├── card.md
+│   │   ├── colors.md
+│   │   ├── consoleInput.md
+│   │   ├── deck.md
+│   │   ├── deckManager.md
+│   │   ├── gameConstants.md
+│   │   ├── gameEngine.md
+│   │   ├── gameLoop.md
+│   │   ├── gameManager.md
+│   │   ├── handAnalyzer.md
+│   │   ├── human.md
+│   │   ├── main.md
+│   │   ├── player.md
+│   │   ├── playerFactory.md
+│   │   ├── playerType.md
+│   │   ├── scoreCalculator.md
+│   │   ├── suit.md
+│   │   └── value.md
+│   ├── screenshots/
+│   └── uml/
+│       ├── chinchonUML.png
+│       └── explicacionUml.md
+├── src/
+│   └── chinchon/
+│       ├── app/
+│       │   ├── ConsoleInput.java
+│       │   ├── DeckManager.java
+│       │   ├── GameEngine.java
+│       │   ├── GameLoop.java
+│       │   ├── GameManager.java
+│       │   ├── Main.java
+│       │   └── ScoreCalculator.java
+│       └── dominio/
+│           ├── AI.java
+│           ├── Card.java
+│           ├── Colors.java
+│           ├── Deck.java
+│           ├── GameConstants.java
+│           ├── HandAnalyzer.java
+│           ├── Human.java
+│           ├── Player.java
+│           ├── PlayerFactory.java
+│           ├── PlayerType.java
+│           ├── Suit.java
+│           └── Value.java
+└── test/
+└── dominio/
+├── DeckManagerTest.java
+├── DeckManagerWhiteBoxTest.java
+├── DeckTest.java
+├── HandAnalyzerTest.java
+├── PlayerFactoryTest.java
+└── PlayerTest.java
 ```
 ---
 ### 📁 **Justificación de la Estructura de Carpetas**
@@ -177,6 +181,39 @@ Proporcionan funcionalidad auxiliar:
 | [**HandAnalyzer**](docs/clases/handAnalyzer.md) | Analiza manos, detecta combinaciones y calcula puntuación. |
 | [**GameConstants**](docs/clases/gameConstants.md) | Constantes centralizadas del juego. |
 | [**Colors**](docs/clases/colors.md) | Códigos ANSI para colorear la salida de consola. |
+
+---
+---
+## 🎨 Patrones de Diseño Implementados
+
+### 1. **Singleton (`GameEngine`)**
+- **Propósito**: Garantizar que solo exista **una instancia** de `GameEngine` en todo el juego.
+- **Implementación**:
+  - Atributo estático `private static GameEngine instance;`.
+  - Método estático `public static GameEngine getInstance()`.
+- **Ventajas**:
+  - **Control centralizado**: Todas las partes del juego acceden a la misma instancia de `GameEngine`.
+  - **Ahorro de recursos**: Evita la creación de múltiples instancias innecesarias.
+- **Uso en el juego**:
+  - `GameEngine` coordina el flujo general, por lo que debe ser único.
+
+### 2. **Factory Method (`PlayerFactory`)**
+- **Propósito**: Crear instancias de `Player` (ya sea `Human` o `AI`) **sin acoplar el código cliente** a las clases concretas.
+- **Implementación**:
+  - Método `public static Player createPlayer(PlayerType type, String name, List<Card> hand, HandAnalyzer analyzer)`.
+  - Devuelve una instancia de `Human` o `AI` según el `PlayerType`.
+- **Ventajas**:
+  - **Desacoplamiento**: `GameManager` no necesita conocer las clases concretas de jugadores.
+  - **Extensibilidad**: Se pueden añadir nuevos tipos de jugadores (ej: `BotAvanzado`) sin modificar `GameManager`.
+- **Uso en el juego**:
+  - Permite crear jugadores de forma dinámica según la configuración inicial.
+
+---
+### 📌 **¿Por qué estos patrones?**
+   **Patrón**       | **Problema que Resuelve**                          | **Alternativa Considerada**               | **Razón para Elegirlo**                          |
+ |------------------|---------------------------------------------------|-------------------------------------------|-------------------------------------------------|
+ | Singleton        | Múltiples instancias de `GameEngine` podrían causar conflictos. | Usar una instancia normal. | Centraliza el control y evita duplicación de recursos. |
+ | Factory Method   | Acoplamiento fuerte entre `GameManager` y las clases concretas de jugadores. | Usar `if-else` en `GameManager`. | Desacopla la creación de jugadores y facilita la extensión. |
 
 ---
 
