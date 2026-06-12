@@ -1,6 +1,6 @@
 # 🎴 Chinchón
 
-> Un juego de cartas jugado con la baraja española, donde los jugadores intentan formar escaleras o grupos para cerrar y ganar rondas.
+> **Chinchón** es una implementación en Java del clásico juego de cartas español, desarrollado como proyecto final de 1º de DAM.
 
 ---
 
@@ -31,6 +31,13 @@
 - ✅ Factory Pattern para creación de jugadores
 - ✅ Soporte para jugadores humanos e IA
 - ✅ Colores ANSI en la salida de consola
+
+---
+
+## 📥 Instalación y Ejecución:
+1. Clona el repositorio: `git clone https://github.com/hcaroli381/Chinchon.git`.
+2. Compila el proyecto: `javac -d bin src/chinchon/app/*.java src/chinchon/dominio/*.java`.
+3. Ejecuta el juego: `java -cp bin chinchon.app.Main`.
 
 ---
 
@@ -92,12 +99,37 @@ Chinchon
       ├─ PlayerFactoryTest.java
       └─ PlayerTest.java
 ```
-
 ---
+### 📁 **Justificación de la Estructura de Carpetas**
+El proyecto está organizado en dos paquetes principales, siguiendo el principio de **separación de responsabilidades**:
 
-## 📚 Explicación de Clases
+- **`src/chinchon/app/`**:
+  - **Contenido**: Clases de **control y coordinación** (`GameEngine`, `GameManager`, `GameLoop`, etc.).
+  - **Justificación**: Centraliza la lógica de **flujo del juego** (turnos, rondas, puntuaciones). Esto permite:
+    - **Desacoplar**
+    - **Facilitar el testing**: Las clases de `app` pueden mockearse para probar el dominio de forma aislada.
 
-Para una explicación detallada de cada clase, haz click en su nombre.
+- **`src/chinchon/dominio/`**:
+  - **Contenido**: Clases de **negocio y datos** (`Player`, `Card`, `Deck`, `HandAnalyzer`, etc.).
+  - **Justificación**: Representa las **reglas y elementos del juego** (cartas, jugadores, combinaciones). Esto permite:
+    - **Reutilizar** el dominio en otros proyectos (ej: un juego de cartas diferente).
+    - **Mantener** el código más limpio y modular.
+
+- **`test/dominio/`**:
+  - **Contenido**: Tests para las clases del dominio.
+  - **Justificación**: Los tests se ubican en una carpeta separada para:
+    - **Evitar confusión** entre código de producción y pruebas.
+    - **Facilitar la ejecución** de pruebas (ej: `mvn test` solo busca en `test/`).
+---
+## 📚 Explicación de Clases y sus Responsabilidades
+
+El proyecto **Chinchón** sigue una arquitectura **basada en capas**, donde cada clase tiene una responsabilidad clara y bien definida. A continuación, se detalla el **rol de cada clase** y su **contribución al juego**:
+
+### 🎯 **Principios de Diseño Aplicados**
+- **Single Responsibility (SRP)**: Cada clase tiene una única responsabilidad (ej: `HandAnalyzer` solo analiza manos, `DeckManager` solo gestiona el mazo).
+- **Open/Closed**: Las clases están abiertas a extensión pero cerradas a modificación (ej: `PlayerFactory` permite añadir nuevos tipos de jugadores sin modificar el código existente).
+- **Dependency Injection**: Las dependencias se inyectan en los constructores (ej: `GameEngine` recibe `GameManager`, `GameLoop`, etc.).
+
 
 ### 🎮 Clases de la Aplicación (app)
 
