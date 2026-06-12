@@ -388,7 +388,7 @@ Se priorizaron los siguientes escenarios para asegurar la **robustez del juego**
    - Asignación de nombre y puntuación.
 
 ---
-## UML
+## 📑​ UML
 [Ver UML](docs/uml/chinchonUML.png)
 
 [Explicación](docs/uml/explicacionUml.md)
