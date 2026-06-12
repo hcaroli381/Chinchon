@@ -16,7 +16,7 @@
 - **Condición de cierre**: Solo puedes cerrar si tienes una carta sin combinar de valor 1-5, todas las cartas combinadas, o Chinchón
 - **Puntuación de ronda**:
   - Cartas sin combinar: Se suma su valor a la puntuación total
-  - Todas combinadas: Se restan 10 puntos
+  - Todas combinadas: Se restan 10 puntosUpdated project structure and added design patterns section.
   - Chinchón: Victoria automática de la partida
 - **Eliminación**: Un jugador es eliminado al alcanzar 100 puntos
 - **Ganador**: El último jugador en pie
@@ -127,8 +127,6 @@ El proyecto está organizado en dos paquetes principales, siguiendo el principio
 ---
 ## 📚 Explicación de Clases y sus Responsabilidades
 
-El proyecto **Chinchón** sigue una arquitectura **basada en capas**, donde cada clase tiene una responsabilidad clara y bien definida. A continuación, se detalla el **rol de cada clase** y su **contribución al juego**:
-
 ### 🎯 **Principios de Diseño Aplicados**
 - **Single Responsibility (SRP)**: Cada clase tiene una única responsabilidad (ej: `HandAnalyzer` solo analiza manos, `DeckManager` solo gestiona el mazo).
 - **Open/Closed**: Las clases están abiertas a extensión pero cerradas a modificación (ej: `PlayerFactory` permite añadir nuevos tipos de jugadores sin modificar el código existente).
@@ -182,7 +180,7 @@ Proporcionan funcionalidad auxiliar:
 | [**GameConstants**](docs/clases/gameConstants.md) | Constantes centralizadas del juego. |
 | [**Colors**](docs/clases/colors.md) | Códigos ANSI para colorear la salida de consola. |
 
----
+
 ---
 ## 🎨 Patrones de Diseño Implementados
 
@@ -197,7 +195,7 @@ Proporcionan funcionalidad auxiliar:
 - **Uso en el juego**:
   - `GameEngine` coordina el flujo general, por lo que debe ser único.
 
-### 2. **Factory Method (`PlayerFactory`)**
+### 2. **Factory (`PlayerFactory`)**
 - **Propósito**: Crear instancias de `Player` (ya sea `Human` o `AI`) **sin acoplar el código cliente** a las clases concretas.
 - **Implementación**:
   - Método `public static Player createPlayer(PlayerType type, String name, List<Card> hand, HandAnalyzer analyzer)`.
@@ -209,13 +207,7 @@ Proporcionan funcionalidad auxiliar:
   - Permite crear jugadores de forma dinámica según la configuración inicial.
 
 ---
-### 📌 **¿Por qué estos patrones?**
-   **Patrón**       | **Problema que Resuelve**                          | **Alternativa Considerada**               | **Razón para Elegirlo**                          |
- |------------------|---------------------------------------------------|-------------------------------------------|-------------------------------------------------|
- | Singleton        | Múltiples instancias de `GameEngine` podrían causar conflictos. | Usar una instancia normal. | Centraliza el control y evita duplicación de recursos. |
- | Factory Method   | Acoplamiento fuerte entre `GameManager` y las clases concretas de jugadores. | Usar `if-else` en `GameManager`. | Desacopla la creación de jugadores y facilita la extensión. |
 
----
 
 ## 📝 Notas de Desarrollo
 
@@ -401,12 +393,46 @@ Se priorizaron los siguientes escenarios para asegurar la **robustez del juego**
 
 [Explicación](docs/uml/explicacionUml.md)
 
+---
+## 📜 JavaDoc
 
-## Aclaraciones / Notas
+### **Ejemplo de JavaDoc en `PlayerFactory.java` (Factory Method)**
+```java
+/*
+ * Fábrica centralizada para crear instancias de jugadores.
+ */
+public class PlayerFactory {
+    /**
+     * Crea un jugador concreto según el tipo indicado.
+     *
+     * @param type         tipo de jugador a construir (ej: {@link PlayerType#HUMAN} o {@link PlayerType#AI})
+     * @param name         nombre del jugador
+     * @param hand         mano inicial asignada al jugador
+     * @param handAnalyzer analizador de manos compartido para calcular puntos y combinaciones
+     * @return instancia de {@link Player} (ya sea {@link Human} o {@link AI})
+     * @throws IllegalArgumentException si el tipo de jugador no es reconocido
+     */
+    public static Player createPlayer(
+        PlayerType type,
+        String name,
+        List<Card> hand,
+        HandAnalyzer handAnalyzer
+    ) throws IllegalArgumentException {
+        // Implementación...
+    }
+}
+```
 
-- **Número de barajas**: Si hay 3 o más jugadores se usan 2 barajas; cuando queden 2 jugadores se jugará con 1 baraja.
-- **Reabastecer mazo**: Si la baraja se agota, se baraja la pila de descartes (manteniendo la carta superior) y se reutiliza como nuevo mazo.
-- **Pausas**: Se usan pausas (`Thread.sleep`) para dar tiempo a visualizar las acciones de la IA.
+---
+### 📌 ¿Qué nos explica JavaDoc? 
+✅ **Descripción clara**: Cada clase y método tiene una explicación de su propósito.
+✅ **Parámetros documentados**: Se especifica el tipo, nombre y propósito de cada parámetro.
+✅ **Valores de retorno**: Se indica qué devuelve el método y en qué condiciones.
+✅ **Excepciones**: Se documentan las excepciones que puede lanzar el método (`IllegalArgumentException`).
+✅ **Enlaces a otras clases**: Uso de `{@link Clase}` para referenciar otras partes del código.
+✅ **Detalles de implementación**: En algunos casos, se aclaran reglas del juego (ej: condiciones para cerrar).
+
+
 
 
 
