@@ -425,12 +425,12 @@ public class PlayerFactory {
 
 ---
 ### 📌 ¿Qué nos explica JavaDoc? 
-✅ **Descripción clara**: Cada clase y método tiene una explicación de su propósito.
-✅ **Parámetros documentados**: Se especifica el tipo, nombre y propósito de cada parámetro.
-✅ **Valores de retorno**: Se indica qué devuelve el método y en qué condiciones.
-✅ **Excepciones**: Se documentan las excepciones que puede lanzar el método (`IllegalArgumentException`).
-✅ **Enlaces a otras clases**: Uso de `{@link Clase}` para referenciar otras partes del código.
-✅ **Detalles de implementación**: En algunos casos, se aclaran reglas del juego (ej: condiciones para cerrar).
+- ✅ **Descripción clara**: Cada clase y método tiene una explicación de su propósito.
+- ✅ **Parámetros documentados**: Se especifica el tipo, nombre y propósito de cada parámetro.
+- ✅ **Valores de retorno**: Se indica qué devuelve el método y en qué condiciones.
+- ✅ **Excepciones**: Se documentan las excepciones que puede lanzar el método (`IllegalArgumentException`).
+- ✅ **Enlaces a otras clases**: Uso de `{@link Clase}` para referenciar otras partes del código.
+- ✅ **Detalles de implementación**: En algunos casos, se aclaran reglas del juego (ej: condiciones para cerrar).
 
 
 
