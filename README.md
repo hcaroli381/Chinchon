@@ -326,6 +326,11 @@ Se priorizaron los siguientes escenarios para asegurar la **robustez del juego**
 4. **Gestión de jugadores** (`Player`):
    - Asignación de nombre y puntuación.
 
+---
+## UML
+[Ver UML](docs/uml/chinchonUML.png)
+
+[Explicación](docs/uml/explicacionUml.md)
 
 
 ## Aclaraciones / Notas
